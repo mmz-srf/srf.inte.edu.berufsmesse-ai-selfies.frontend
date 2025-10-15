@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import WebcamCapture from "./components/WebCam";
+import WebcamCapture from "../components/WebCam";
 
 export default function Home() {
   const webcamRef = useRef<Webcam>(null);

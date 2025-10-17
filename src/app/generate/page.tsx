@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import QRCode from 'qrcode'
+import { svgStringToPng } from "../libs/svg2png";
 
 export default function Generate() {
   const [status, setStatus] = useState<string | null>(null);
@@ -30,9 +31,8 @@ export default function Generate() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             name: "Test Pokémon",
-            selfieId: localStorage.getItem("selfieId"),
             imagePath: localStorage.getItem("aiImage"),
-            template: "mockup.svg"
+            template: "srf-v1.svg"
             }),
         });
 
@@ -42,8 +42,29 @@ export default function Generate() {
         
         const data = await response.json();
         console.log('Card created:', data);
-        localStorage.setItem('cardLink', data.link);
-        setStatus("card-done");
+        const base64Image = await svgStringToPng(data.svg, 1050, 760);
+        console.log('SelfieId:', localStorage.getItem("selfieId"));
+        try {
+            const uploadResponse = await fetch("http://localhost:8080/api/v1/upload-card", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    selfieId: localStorage.getItem("selfieId"),
+                    image: base64Image
+                }),
+            });
+
+            if (!uploadResponse.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const uploadData = await uploadResponse.json();
+            console.log('Card uploaded:', uploadData);
+            localStorage.setItem("cardLink", uploadData.url);
+            setStatus("card-done"); } catch (error) {
+            console.error("Error uploading card:", error);
+            setError("Error uploading card");
+        }
     } catch (error) {
         console.error("Error creating card:", error);
         setError("Error creating card");
@@ -134,7 +155,7 @@ export default function Generate() {
         {status === "card-done" && (
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <canvas id="qr-code"></canvas>
-                <img src={localStorage.getItem("cardLink") || ""} alt="Preview" style={{ height: "auto", width: "300px", justifyContent: "center", alignItems: "center" }} />
+                <img src={localStorage.getItem("cardLink") || ""} alt="Preview" style={{ justifyContent: "center", alignItems: "center" }} />
             </div>
         )}
     </div>

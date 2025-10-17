@@ -1,0 +1,74 @@
+.upload-photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.title {
+    display: block;
+    font-size: 40px;
+    margin-block-start: 0.27em;
+    margin-block-end: 0.27em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 700;
+    unicode-bidi: isolate;
+}
+
+.webcam-section {
+    margin-top: 15px;
+}
+
+.captured-image {
+    width: 666px;
+    height: 500px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    margin-bottom: 5px;
+}
+
+.webcam-buttons {
+    margin-top: 28px;
+    width: 666px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.capture-button {
+    padding: 13px;
+    border-radius: 50%;
+    border: none;
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+
+.capture-button:disabled {
+    background-color: #A9A9A9;
+    cursor: not-allowed;
+}
+
+.retake-button,
+.next-button {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-weight: bold;
+    border: none;
+    background-color: #D9D9D9;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+}
+
+.retake-button:hover,
+.next-button:hover,
+.capture-button:hover {
+    background-color: #c3c3c3;
+}
+
+.capture-button:disabled:hover {
+    background-color: #A9A9A9;
+}

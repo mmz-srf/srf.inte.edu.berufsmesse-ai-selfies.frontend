@@ -1,4 +1,21 @@
+@font-face {
+  font-family: 'SRG SSR Type Text App';
+  src: url('/fonts/SRGSSRType_Bd.ttf') format('truetype');
+}
+
 body {
     margin: 0;
     padding: 0;
+    font-family: 'SRG SSR Type Text App' ;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
 }

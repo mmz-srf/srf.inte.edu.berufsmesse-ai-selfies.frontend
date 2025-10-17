@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import WebcamCapture from "../components/WebCam";
+import WebcamCapture from "../components/WebCam/WebCam";
 import { v4 as uuid } from 'uuid';
 
 export default function Home() {
@@ -11,12 +11,27 @@ export default function Home() {
 
   const apiUrl = "http://localhost:8080"
 
-  const capture = () => {
-    if (webcamRef.current) {
-      const imageSrc = webcamRef.current.getScreenshot();
-      if (imageSrc) setImage(imageSrc);
-    }
-  };
+const capture = () => {
+  if (!webcamRef.current) return;
+
+  const video = webcamRef.current.video;
+  if (!video) return;
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d");
+
+  if (!ctx) return;
+
+  // Spiegelung horizontal
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  const imageSrc = canvas.toDataURL("image/png");
+  setImage(imageSrc);
+};
+
 
   const handleSendImage = async () => {
     if (!image) {
@@ -83,7 +98,7 @@ export default function Home() {
             <img
               src={image}
               alt="Captured image"
-              style={{ borderRadius: 16, boxShadow: "0 0 20px rgba(0,0,0,0.4)", marginBottom: "1rem" }}
+              style={{ borderRadius: 16, boxShadow: "0 0 20px rgba(0,0,0,0.4)", marginBottom: "1rem", maxHeight: "300px" }}
             />
           </>
         )}

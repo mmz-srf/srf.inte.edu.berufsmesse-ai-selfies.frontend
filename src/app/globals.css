@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'SRG SSR Type Text App' ;
+    background-color: #F5F5F2;
 }
 
 .flex {
@@ -18,4 +19,12 @@ body {
 
 .hidden {
     display: none;
+}
+
+.srf-logo {
+    position: absolute;
+    width: 75px;
+    height: 49px;
+    top: 30px;
+    left: 30px;
 }

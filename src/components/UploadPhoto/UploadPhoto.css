@@ -76,3 +76,8 @@
 .capture-button:disabled:hover {
     background-color: #A9A9A9;
 }
+
+.camera-icon {
+    display: block;
+    margin: 0 auto;
+}

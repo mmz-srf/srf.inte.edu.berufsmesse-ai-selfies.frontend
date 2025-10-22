@@ -34,7 +34,7 @@ export default function UploadPhoto() {
     return (
     <div className='upload-photo-container'>
         <div className='top'>
-            <span className='title'>Ertselle ein Foto für deine</span>
+            <span className='title'>Erstelle ein Foto für deine</span>
             <span className='title'>Persönliche SRF-Charakterkarte!</span>
         </div>
         <div className='webcam-section flex'>

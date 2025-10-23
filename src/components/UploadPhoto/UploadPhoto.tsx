@@ -53,11 +53,11 @@ export default function UploadPhoto() {
             )}
         </div>
         <div className='webcam-buttons'>
-            <button className='retake-button' onClick={() => setImage(null)}>Foto zurücksetzen</button>
+            <button className='retake-button' onClick={() => setImage(null)} disabled={image == null}>Foto zurücksetzen</button>
             <button onClick={capture} disabled={image != null} className='capture-button'>
                 <img src="/icons/photo_camera.svg" alt="Take Photo" width="32px" height="auto" className='camera-icon'/>
             </button>
-            <button className={`next-button ${image == null ? 'disabled' : ''}`} onClick={nextStep}>Nächster Schritt</button>
+            <button className={`next-button ${image == null ? 'disabled' : ''}`} onClick={nextStep} disabled={image == null}>Nächster Schritt</button>
         </div>
     </div>
 )

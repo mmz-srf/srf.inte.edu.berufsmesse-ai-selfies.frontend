@@ -1,13 +1,14 @@
 "use client";
 
 import FormPage from "@/components/FormPage/FormPage";
+import LoadingPage from "@/components/LoadingPage/LoadingPage";
 import UploadPhoto from "@/components/UploadPhoto/UploadPhoto";
 import { useEffect, useState } from "react";
 
 export default function Home() {
     const [selfieImage, setSelfieImage] = useState<string | null>(null);
     const [formData, setFormData] = useState<FormData | null>(null);
-    const [svg, setSvg] = useState<string | null>(null);
+    const [url, setUrl] = useState<string | null>(null);
 
     const checkLocalStorage = () => {
         // Get selfie image
@@ -24,8 +25,8 @@ export default function Home() {
         }
 
         // Get SVG
-        const svgString = localStorage.getItem('generatedSVG');
-        setSvg(svgString);
+        const imageUrl = localStorage.getItem('url');
+        setUrl(imageUrl);
     };
 
     useEffect(() => {
@@ -49,8 +50,15 @@ export default function Home() {
     return (
         <div>
             <img src="/icons/SRF.png" alt="SRF Logo" className="srf-logo" />
-            { !selfieImage && !formData && !svg && <UploadPhoto /> }
-            { selfieImage && !formData && !svg && <FormPage /> }
+            { !selfieImage && !formData && !url && <UploadPhoto /> }
+            { selfieImage && !formData && !url && <FormPage /> }
+            { selfieImage && formData && !url &&  <LoadingPage />}
+            { selfieImage && formData && url && (
+                <div className="final-page">
+                    <h1>Image done</h1>
+                    <a href={url} target="_blank">View Image</a>
+                </div>
+            ) }
         </div>
     );
 }

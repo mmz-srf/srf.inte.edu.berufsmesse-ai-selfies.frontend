@@ -42,6 +42,10 @@ export default function FormPage() {
             return;
         }
 
+        if (name.length > 12) {
+            return;
+        }
+
         const formData: FormData = {
             name,
             age: parseInt(age),
@@ -98,6 +102,7 @@ export default function FormPage() {
                         name="name"
                         placeholder="z.B. Kim"
                         value={name}
+                        maxLength={12}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>

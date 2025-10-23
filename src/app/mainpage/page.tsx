@@ -1,5 +1,6 @@
 "use client";
 
+import ResultPage from "@/components/ResultPage/ResultPage";
 import FormPage from "@/components/FormPage/FormPage";
 import LoadingPage from "@/components/LoadingPage/LoadingPage";
 import UploadPhoto from "@/components/UploadPhoto/UploadPhoto";

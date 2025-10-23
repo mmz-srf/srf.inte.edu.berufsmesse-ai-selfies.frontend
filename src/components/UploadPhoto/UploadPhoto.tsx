@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import WebcamCapture from "../WebCam/WebCam";
 import Webcam from 'react-webcam';
 
@@ -31,6 +31,13 @@ export default function UploadPhoto() {
         setImage(imageSrc);
     };
 
+    const nextStep = () => {
+        if (image) {
+            localStorage.setItem('selfieImage', image);
+            window.dispatchEvent(new Event('storage'));
+        }
+    }
+
     return (
     <div className='upload-photo-container'>
         <div className='top'>
@@ -50,7 +57,7 @@ export default function UploadPhoto() {
             <button onClick={capture} disabled={image != null} className='capture-button'>
                 <img src="/icons/photo_camera.svg" alt="Take Photo" width="32px" height="auto" className='camera-icon'/>
             </button>
-            <button className='next-button'>Nächster Schritt</button>
+            <button className={`next-button ${image == null ? 'disabled' : ''}`} onClick={nextStep}>Nächster Schritt</button>
         </div>
     </div>
 )

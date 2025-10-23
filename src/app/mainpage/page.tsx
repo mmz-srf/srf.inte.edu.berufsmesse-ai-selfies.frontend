@@ -54,12 +54,7 @@ export default function Home() {
             { !selfieImage && !formData && !url && <UploadPhoto /> }
             { selfieImage && !formData && !url && <FormPage /> }
             { selfieImage && formData && !url &&  <LoadingPage />}
-            { selfieImage && formData && url && (
-                <div className="final-page">
-                    <h1>Image done</h1>
-                    <a href={url} target="_blank">View Image</a>
-                </div>
-            ) }
+            { selfieImage && formData && url && <ResultPage /> }
         </div>
     );
 }

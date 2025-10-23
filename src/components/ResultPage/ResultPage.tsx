@@ -1,17 +1,35 @@
+import { useEffect, useState } from 'react';
 // @ts-ignore
 import './ResultPage.css';
+import QRCode from 'qrcode'
 
 export default function ResultPage() {
+
+    useEffect(() => {
+        const url = localStorage.getItem("url");
+        if (!url) return;
+
+        // Generate QR code
+        const qrCodeCanvas = document.getElementById('qr-code') as HTMLCanvasElement;
+        QRCode.toCanvas(
+            qrCodeCanvas,
+            url,
+            function (error: any) {
+                if (error) console.error(error);
+            }
+        )
+    }, []);
+
     return (
         <div className="result-page-container">
             <h1>Deine SRF Charakterkarte ist bereit!</h1>
-            <h2>Download sie über den QR-Code.</h2>
+            <h2>Downloade sie über den QR-Code.</h2>
             <div className="result-content">
                 <div className="result-image">
-                    <img src="/path/to/generated/selfie.png" alt="Generated Selfie" />
+                    <img src={localStorage.getItem("url") || ""} />
                 </div>
                 <div className="result-qr-code">
-                    <img src="/path/to/generated/qr-code.png" alt="QR Code" />
+                    <canvas id="qr-code"></canvas>
                 </div>
             </div>
         </div>

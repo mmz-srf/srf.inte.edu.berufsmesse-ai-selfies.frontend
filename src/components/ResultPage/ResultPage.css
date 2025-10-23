@@ -19,37 +19,36 @@ h2 {
     font-weight: 500;
 }
 
-/* Neuer Wrapper für Bild + QR-Code nebeneinander */
 .result-content {
     display: flex;
-    flex-direction: row; /* Nebeneinander statt untereinander */
+    flex-direction: row; 
     align-items: center;
     justify-content: center;
-    gap: 40px; /* Abstand zwischen Bild und QR */
+    gap: 40px;
     margin-top: 20px;
 }
 
 .result-image img {
-    max-width: 300px; /* optional anpassen */
+    max-width: 300px;
     height: auto;
 }
 
-.result-qr-code img {
+.result-qr-code canvas {
     width: 150px;
     height: 150px;
 }
 
 @media (max-width: 768px) {
     .result-content {
-        flex-direction: column; /* Statt nebeneinander -> untereinander */
-        gap: 20px; /* Weniger Abstand */
+        flex-direction: column;
+        gap: 20px;
     }
 
     .result-image img {
-        max-width: 80%; /* Etwas kleiner auf Handy */
+        max-width: 80%;
     }
 
-    .result-qr-code img {
+    .result-qr-code canvas {
         width: 120px;
         height: 120px;
     }

@@ -1,6 +1,6 @@
 // @ts-ignore
 import "./FormPage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormData } from "../../app/libs/types/FormData";
 import { v4 as uuid } from "uuid";
 
@@ -13,6 +13,28 @@ export default function FormPage() {
 
     const availableColors = ["#30ede9ff", "#6c2672ff", "#acfb94ff", "#ffff5bff"];
     const genders = ["Männlich", "Weiblich", "Divers"];
+
+    const handleAgeChange = (inputAge: string) => {
+        if (inputAge === "") {
+            setAge("");
+            return;
+        }
+    
+        const ageNum = parseInt(inputAge);
+                if (isNaN(ageNum)) {
+            return;
+        }
+        
+        if (ageNum > 99) {
+            return;
+        }
+        
+        if (ageNum < 1) {
+            setAge("1");
+            return;
+        }
+        setAge(inputAge);
+    }
 
     const handleSubmit = () => {
         // Validate form
@@ -85,9 +107,11 @@ export default function FormPage() {
                         type="number"
                         id="age"
                         name="age"
+                        min={1}
+                        max={99}
                         placeholder="z.B. 15"
                         value={age}
-                        onChange={(e) => setAge(e.target.value)}
+                        onChange={(e) => handleAgeChange(e.target.value)}
                     />
                 </div>
                 <div className="question">

@@ -97,9 +97,13 @@ span {
     min-height: 44px;
     white-space: nowrap;
 }
-
 .next-step-button:hover {
     background-color: #8d0614;
+}
+.next-step-button:disabled,
+.next-step-button:disabled:hover {
+    background-color: #a9a9a9;
+    cursor: not-allowed;
 }
 
 .next-step-button-container {

@@ -63,6 +63,11 @@
     font-size: 16px;
 }
 
+.next-button.disabled,
+.next-button:disabled:hover {
+    background-color: #8d0614;
+    cursor: not-allowed;
+}
 .retake-button:hover,
 .next-button:hover {
     background-color: #8d0614;
@@ -75,4 +80,9 @@
 
 .capture-button:disabled:hover {
     background-color: #A9A9A9;
+}
+
+.camera-icon {
+    display: block;
+    margin: 0 auto;
 }

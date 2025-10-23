@@ -1,0 +1,169 @@
+.form-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+.form-questions {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    width: 100%;
+    max-width: 500px;
+    min-width: 280px;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.question .genders {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+.gender-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: fit-content;
+}
+
+span, label {
+    font-size: clamp(14px, 2.5vw, 16px);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+span {
+    font-family: 'SRG SSR Regular';
+}
+
+.color-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+/* Color option item */
+.color-option {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    transition: all 200ms ease;
+    flex-shrink: 0;
+}
+
+.color-option:hover {
+    filter: brightness(0.9);
+    transform: scale(1.05);
+}
+
+.color-option.selected {
+    border: 2px solid #AF001E;
+    box-shadow: 0 0 8px 3px rgba(175, 0, 30, 0.35);
+    transform: scale(1.1);
+}
+
+.next-step-button {
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    border-radius: 7px;
+    font-weight: bold;
+    border: none;
+    background-color: #AF001E;
+    color: white;
+    font-size: clamp(14px, 2.5vw, 16px);
+    transition: all 200ms ease;
+    min-height: 44px;
+    white-space: nowrap;
+}
+
+.next-step-button:hover {
+    background-color: #8d0614;
+}
+
+.next-step-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .form-page-container {
+        padding: 1rem 0.75rem;
+        min-height: calc(100vh - 100px);
+    }
+    
+    .form-questions {
+        gap: 1.5rem;
+        max-width: 100%;
+    }
+    
+    .question .genders {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .gender-option {
+        flex: none;
+        width: 100%;
+    }
+    
+    .color-options {
+        justify-content: center;
+        gap: 0.75rem;
+    }
+    
+    .next-step-button-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-page-container {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .color-option {
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        min-height: 35px;
+    }
+    
+    .next-step-button {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+.color-option:focus-visible {
+    outline: 2px solid #AF001E;
+    outline-offset: 2px;
+}
+
+.next-step-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}

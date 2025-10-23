@@ -1,41 +1,50 @@
+
 .upload-photo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
 }
 
 .title {
     display: block;
-    font-size: 40px;
-    margin-block-start: 0.27em;
-    margin-block-end: 0.27em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    font-size: 38px;
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
     font-weight: 700;
     unicode-bidi: isolate;
 }
 
 .webcam-section {
     margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.captured-image {
-    width: 666px;
-    height: 500px;
+.captured-image,
+.webcam-section video {
+    width: 100%;               
+    max-width: 90vw;           
+    max-height: 70vh;          
+    aspect-ratio: 4 / 3;       
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    object-fit: cover;         
     margin-bottom: 5px;
 }
 
 .webcam-buttons {
-    margin-top: 28px;
-    width: 666px;
+    margin-top: 24px;
+    width: 100%;
+    max-width: 666px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .capture-button {
@@ -44,10 +53,24 @@
     border: none;
     background-color: #AF001E;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .capture-button:hover {
     background-color: #8d0614;
+}
+
+.capture-button:hover {
+    background-color: #c3c3c3;
+}
+
+.capture-button:disabled:hover {
+    background-color: #A9A9A9;
+}
+
+.camera-icon {
+    display: block;
+    margin: 0 auto;
 }
 
 .retake-button,
@@ -60,6 +83,7 @@
     background-color: #AF001E;
     color: white;
     font-size: 16px;
+    transition: background-color 0.2s ease;
 }
 
 .retake-button:hover,
@@ -70,4 +94,44 @@
 .camera-icon {
     display: block;
     margin: 0 auto;
+ }
+
+@media (max-width: 768px) {
+    .captured-image,
+    .webcam-section video {
+        max-width: 95vw;
+        max-height: 65vh;
+    }
+
+    .webcam-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .retake-button,
+    .next-button {
+        width: 80%;
+    }
 }
+
+@media (max-height: 700px) {
+    .captured-image,
+    .webcam-section video {
+        max-height: 55vh; 
+        max-width: 80vw;
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    .webcam-buttons {
+        gap: 8px;
+        margin-top: 18px;
+    }
+
+    .retake-button,
+    .next-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }

@@ -1,0 +1,56 @@
+.result-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: -20px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 45px;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* Neuer Wrapper für Bild + QR-Code nebeneinander */
+.result-content {
+    display: flex;
+    flex-direction: row; /* Nebeneinander statt untereinander */
+    align-items: center;
+    justify-content: center;
+    gap: 40px; /* Abstand zwischen Bild und QR */
+    margin-top: 20px;
+}
+
+.result-image img {
+    max-width: 300px; /* optional anpassen */
+    height: auto;
+}
+
+.result-qr-code img {
+    width: 150px;
+    height: 150px;
+}
+
+@media (max-width: 768px) {
+    .result-content {
+        flex-direction: column; /* Statt nebeneinander -> untereinander */
+        gap: 20px; /* Weniger Abstand */
+    }
+
+    .result-image img {
+        max-width: 80%; /* Etwas kleiner auf Handy */
+    }
+
+    .result-qr-code img {
+        width: 120px;
+        height: 120px;
+    }
+}

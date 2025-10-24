@@ -4,7 +4,7 @@ import next from "next";
 import fs from "fs";
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "192.168.1.10";
+const hostname = "192.168.2.1";
 const port = 3000;
 
 const app = next({ dev, hostname, port });

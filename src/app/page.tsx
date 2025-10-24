@@ -94,7 +94,7 @@ export default function Home() {
           <div>Noch kein Bild aufgenommen</div>
         ) : (
           <>
-            <Image
+            <img
               src={image}
               alt="Captured image"
               style={{ borderRadius: 16, boxShadow: "0 0 20px rgba(0,0,0,0.4)", marginBottom: "1rem", maxHeight: "300px" }}

@@ -5,7 +5,6 @@ import FormPage from "@/components/FormPage/FormPage";
 import LoadingPage from "@/components/LoadingPage/LoadingPage";
 import UploadPhoto from "@/components/UploadPhoto/UploadPhoto";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 export default function Home() {
     const [selfieImage, setSelfieImage] = useState<string | null>(null);
@@ -51,7 +50,7 @@ export default function Home() {
 
     return (
         <div>
-            <Image src="/icons/SRF.png" alt="SRF Logo" className="srf-logo" />
+            <img src="/icons/SRF.png" alt="SRF Logo" className="srf-logo" />
             { !selfieImage && !formData && !url && <UploadPhoto /> }
             { selfieImage && !formData && !url && <FormPage /> }
             { selfieImage && formData && !url &&  <LoadingPage />}

@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import QRCode from 'qrcode'
 import { svgStringToPng } from "../libs/svg2png";
-import Image from "next/image";
 
 export default function Generate() {
   const [status, setStatus] = useState<string | null>(null);
@@ -156,7 +155,7 @@ export default function Generate() {
         {status === "card-done" && (
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <canvas id="qr-code"></canvas>
-                <Image src={localStorage.getItem("cardLink") || ""} alt="Preview" style={{ justifyContent: "center", alignItems: "center" }} />
+                <img src={localStorage.getItem("cardLink") || ""} alt="Preview" style={{ justifyContent: "center", alignItems: "center" }} />
             </div>
         )}
     </div>

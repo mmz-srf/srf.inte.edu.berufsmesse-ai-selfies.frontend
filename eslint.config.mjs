@@ -33,6 +33,9 @@ const eslintConfig = [
       "@typescript-eslint/ban-ts-comment": "off",
       "prefer-const": "warn",
       "no-console": "off", // Allow console.log in development
+      
+      // Allow regular img tags instead of forcing Next.js Image component
+      "@next/next/no-img-element": "off",
     },
   },
 ];

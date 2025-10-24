@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-// @ts-ignore
+import { useEffect } from 'react';
 import './ResultPage.css';
 import QRCode from 'qrcode'
+import Image from 'next/image';
 
 export default function ResultPage() {
 
@@ -26,7 +26,7 @@ export default function ResultPage() {
             <h2>Downloade sie über den QR-Code.</h2>
             <div className="result-content">
                 <div className="result-image">
-                    <img src={localStorage.getItem("url") || ""} />
+                    <Image src={localStorage.getItem("url") || ""} alt="Generated Image" layout="fill" objectFit="contain" />
                 </div>
                 <div className="result-qr-code">
                     <canvas id="qr-code"></canvas>

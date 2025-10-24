@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import WebcamCapture from "../WebCam/WebCam";
 import Webcam from 'react-webcam';
 
-// @ts-ignore
+
 import './UploadPhoto.css';
+import Image from 'next/image';
 
 export default function UploadPhoto() {
     const webcamRef = useRef<Webcam>(null);
@@ -49,13 +50,13 @@ export default function UploadPhoto() {
                 <WebcamCapture ref={webcamRef} width={666} height={500} />
             </div>
             { image && (
-                <img src={image} alt="Captured" className='captured-image' />
+                <Image src={image} alt="Captured" className='captured-image' />
             )}
         </div>
         <div className='webcam-buttons'>
             <button className='retake-button' onClick={() => setImage(null)} disabled={image == null}>Foto zurücksetzen</button>
             <button onClick={capture} disabled={image != null} className='capture-button'>
-                <img src="/icons/photo_camera.svg" alt="Take Photo" width="32px" height="auto" className='camera-icon'/>
+                <Image src="/icons/photo_camera.svg" alt="Take Photo" className='camera-icon'/>
             </button>
             <button className={`next-button ${image == null ? 'disabled' : ''}`} onClick={nextStep} disabled={image == null}>Nächster Schritt</button>
         </div>

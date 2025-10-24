@@ -1,4 +1,3 @@
-
 import './LoadingPage.css';
 import { svgStringToPng } from '@/app/libs/svg2png';
 import { useEffect, useRef, useState } from 'react';

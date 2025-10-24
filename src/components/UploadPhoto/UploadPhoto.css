@@ -60,11 +60,6 @@
     background-color: #8d0614;
 }
 
-.capture-button:hover {
-    background-color: #c3c3c3;
-}
-
-
 .capture-button:disabled:hover {
     background-color: #A9A9A9;
 }

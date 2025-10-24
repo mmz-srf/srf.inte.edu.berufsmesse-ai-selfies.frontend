@@ -11,8 +11,8 @@ const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: fs.readFileSync("./192.168.1.10-key.pem"),
-  cert: fs.readFileSync("./192.168.1.10.pem"),
+  key: fs.readFileSync("./192.168.2.1-key.pem"),
+  cert: fs.readFileSync("./192.168.2.1.pem"),
 };
 
 app.prepare().then(() => {

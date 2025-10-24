@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+/192.168.2.1-key.pem
+/192.168.2.1.pem
 
 # vercel
 .vercel

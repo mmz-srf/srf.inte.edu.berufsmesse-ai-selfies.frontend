@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import "./FormPage.css";
 import { useEffect, useState } from "react";
 import { FormData } from "../../app/libs/types/FormData";

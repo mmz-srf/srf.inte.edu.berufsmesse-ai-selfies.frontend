@@ -19,7 +19,7 @@ app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url || "/", true);
     handle(req, res, parsedUrl);
-  }).listen(port, (err?: Error) => {
+  }).listen(port, (err) => {
     if (err) throw err;
     console.log(`HTTPS-Server started on https://${hostname}:${port}`);
   });

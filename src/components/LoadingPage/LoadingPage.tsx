@@ -84,7 +84,7 @@ export default function LoadingPage() {
                 console.log('Card created:', data);
                 const base64Image = await svgStringToPng(data.svg, 1050, 760);
                 try {
-                    const uploadResponse = await fetch('https://192.168.2.1:844/api/v1/upload-card', {
+                    const uploadResponse = await fetch('https://192.168.2.1:8443/api/v1/upload-card', {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({

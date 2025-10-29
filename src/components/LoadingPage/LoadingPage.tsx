@@ -2,7 +2,6 @@ import './LoadingPage.css';
 import { svgStringToPng } from '@/app/libs/svg2png';
 import { useEffect, useRef, useState } from 'react';
 import { FormData } from '@/app/libs/types/FormData';
-import config from '@/app/libs/config';
 
 export default function LoadingPage() {
     const [status, setStatus] = useState<string>('pending');
@@ -14,7 +13,7 @@ export default function LoadingPage() {
         const workflowId = localStorage.getItem("workflowId");
         if (!workflowId) return;
         try {
-            const response = await fetch(`${config.backendUrl}${config.urlBasePath}/workflow-status`, {
+            const response = await fetch('https://192.168.2.1/workflow-status', {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -67,7 +66,7 @@ export default function LoadingPage() {
 
         // TODO: replace template name with `srf-${color}.svg` when templates are done
         try {
-            const response = await fetch(`${config.backendUrl}${config.urlBasePath}/create-card`, {
+            const response = await fetch('https://192.168.2.1/create-card', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -85,7 +84,7 @@ export default function LoadingPage() {
                 console.log('Card created:', data);
                 const base64Image = await svgStringToPng(data.svg, 1050, 760);
                 try {
-                    const uploadResponse = await fetch(`${config.backendUrl}${config.urlBasePath}/upload-card`, {
+                    const uploadResponse = await fetch('https://192.168.2.1/upload-card', {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({

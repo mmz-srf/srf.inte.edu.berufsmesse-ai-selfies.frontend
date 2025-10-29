@@ -13,7 +13,7 @@ export default function LoadingPage() {
         const workflowId = localStorage.getItem("workflowId");
         if (!workflowId) return;
         try {
-            const response = await fetch('http://192.168.2.1/workflow-status', {
+            const response = await fetch('http://192.168.2.1:8080/workflow-status', {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export default function LoadingPage() {
 
         // TODO: replace template name with `srf-${color}.svg` when templates are done
         try {
-            const response = await fetch('http://192.168.2.1/create-card', {
+            const response = await fetch('http://192.168.2.1:8080/create-card', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -84,7 +84,7 @@ export default function LoadingPage() {
                 console.log('Card created:', data);
                 const base64Image = await svgStringToPng(data.svg, 1050, 760);
                 try {
-                    const uploadResponse = await fetch('http://192.168.2.1/upload-card', {
+                    const uploadResponse = await fetch('http://192.168.2.1:8080/upload-card', {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({

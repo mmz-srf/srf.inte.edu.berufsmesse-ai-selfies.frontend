@@ -65,7 +65,7 @@ export default function FormPage() {
         const base64 = image.replace(/^data:image\/\w+;base64,/, ""); // Image src to base64
 
         try {
-            const response = await fetch('https://192.168.2.1/card-image', {
+            const response = await fetch('http://192.168.2.1/card-image', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

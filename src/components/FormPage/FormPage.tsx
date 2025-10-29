@@ -2,7 +2,6 @@ import "./FormPage.css";
 import { useState } from "react";
 import { FormData } from "../../app/libs/types/FormData";
 import { v4 as uuid } from "uuid";
-import config from "@/app/libs/config";
 
 export default function FormPage() {
     const [name, setName] = useState<string>("");
@@ -66,8 +65,7 @@ export default function FormPage() {
         const base64 = image.replace(/^data:image\/\w+;base64,/, ""); // Image src to base64
 
         try {
-            console.log(`Sending image for processing to backend ${config.backendUrl}${config.urlBasePath}/card-image`);
-            const response = await fetch(`${config.backendUrl}${config.urlBasePath}/card-image`, {
+            const response = await fetch('https://192.168.2.1/card-image', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

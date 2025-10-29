@@ -9,14 +9,24 @@ interface WebcamCaptureProps {
 
 // TODO: Adjust output size when we know what we need
 const WebcamCapture = React.forwardRef<Webcam, WebcamCaptureProps>(
-  ({ width = 320, height = 240, screenshotFormat = "image/png" }, ref) => {
+  ({ width, height, screenshotFormat = "image/png" }, ref) => {
+    const webcamStyle: React.CSSProperties = {
+      borderRadius: 16,
+      boxShadow: "0 0 20px rgba(0,0,0,0.4)",
+      transform: "scaleX(-1)",
+      objectFit: "cover",
+      backgroundColor: "#D9D9D9",
+      width: width || "100%",
+      height: height || "auto"
+    };
+
     return (
       <Webcam
         audio={false}
         ref={ref}
         screenshotFormat={screenshotFormat}
         videoConstraints={{ facingMode: "user" }}
-        style={{ width, height, borderRadius: 16, boxShadow: "0 0 20px rgba(0,0,0,0.4)", transform: "scaleX(-1)", objectFit: "cover", backgroundColor: "#D9D9D9" }}
+        style={webcamStyle}
       />
     );
   }

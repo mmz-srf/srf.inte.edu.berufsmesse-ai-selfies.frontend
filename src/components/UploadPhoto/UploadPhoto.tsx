@@ -13,19 +13,49 @@ export default function UploadPhoto() {
 
         const video = webcamRef.current.video;
         if (!video) return;
+
+        // Use 4:3 aspect ratio like the default camera (320x240)
+        const targetWidth = 640;
+        const targetHeight = 480; // 4:3 aspect ratio
+
         const canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
         const ctx = canvas.getContext("2d");
 
         if (!ctx) return;
 
-        // Mirror horizontally
+        // Calculate how to crop the video to fit 4:3 aspect ratio
+        const targetAspect = targetWidth / targetHeight; // 4:3 = 1.333
+        const videoAspect = video.videoWidth / video.videoHeight;
+        
+        let sourceX = 0;
+        let sourceY = 0;
+        let sourceWidth = video.videoWidth;
+        let sourceHeight = video.videoHeight;
+
+        if (videoAspect > targetAspect) {
+            // Video is wider than 4:3 - crop from sides
+            sourceWidth = video.videoHeight * targetAspect;
+            sourceX = (video.videoWidth - sourceWidth) / 2;
+        } else {
+            // Video is taller than 4:3 - crop from top/bottom  
+            sourceHeight = video.videoWidth / targetAspect;
+            sourceY = (video.videoHeight - sourceHeight) / 2;
+        }
+
+        // Mirror horizontally and draw
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Draw the cropped video with 4:3 aspect ratio
+        ctx.drawImage(
+            video,
+            sourceX, sourceY, sourceWidth, sourceHeight,  // Source rectangle (4:3 from video)
+            0, 0, targetWidth, targetHeight               // Destination rectangle (canvas)
+        );
 
-        const imageSrc = canvas.toDataURL("image/png");
+        const imageSrc = canvas.toDataURL("image/jpeg", 0.9);
         setImage(imageSrc);
     };
 
@@ -44,7 +74,7 @@ export default function UploadPhoto() {
         </div>
         <div className='webcam-section flex'>
             <div className={image == null ? '' : 'hidden'}>
-                <WebcamCapture ref={webcamRef} width={666} height={500} />
+                <WebcamCapture ref={webcamRef} />
             </div>
             { image && (
                 <img src={image} alt="Captured" className='captured-image' />

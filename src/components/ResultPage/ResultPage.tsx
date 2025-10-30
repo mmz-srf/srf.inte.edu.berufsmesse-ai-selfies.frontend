@@ -36,9 +36,6 @@ export default function ResultPage() {
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
-
-            const data = await response.json();
-            console.log("Cache cleared:", data);
         } catch (error) {
             console.error("Error clearing cache:", error);
         }

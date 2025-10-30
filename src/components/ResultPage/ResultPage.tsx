@@ -17,7 +17,38 @@ export default function ResultPage() {
                 if (error) console.error(error);
             }
         )
+        clearCache();
     }, []);
+
+    const clearCache = async () => {
+        try {
+            const response = await fetch('https://192.168.2.1:8443/api/v1/clear-cache', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    workflowId: localStorage.getItem("workflowId"),
+                    selfieId: localStorage.getItem("selfieId"),
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            const data = await response.json();
+            console.log("Cache cleared:", data);
+        } catch (error) {
+            console.error("Error clearing cache:", error);
+        }
+
+        localStorage.removeItem("formData");
+        localStorage.removeItem("selfieImage");
+        localStorage.removeItem("workflowId");
+        localStorage.removeItem("imagePath");
+        localStorage.removeItem("url");
+    };
 
     return (
         <div className="result-page-container">

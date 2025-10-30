@@ -22,7 +22,7 @@ export default function ResultPage() {
 
     const clearCache = async () => {
         try {
-            const response = await fetch('https://192.168.2.1:8443/api/v1/clear-cache', {
+            const response = await fetch('https://192.168.2.1:8443/api/v1/clear-comfy-ui', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

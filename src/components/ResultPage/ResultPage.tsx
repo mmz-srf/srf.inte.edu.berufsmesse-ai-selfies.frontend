@@ -20,6 +20,16 @@ export default function ResultPage() {
         clearCache();
     }, []);
 
+    const reset = () => {
+        localStorage.removeItem("formData");
+        localStorage.removeItem("selfieImage");
+        localStorage.removeItem("workflowId");
+        localStorage.removeItem("imagePath");
+        localStorage.removeItem("url");
+        localStorage.removeItem("selfieId");
+        window.dispatchEvent(new Event("storage"));
+    }
+
     const clearCache = async () => {
         try {
             const response = await fetch('https://192.168.2.1:8443/api/v1/clear-comfy-ui', {
@@ -39,12 +49,6 @@ export default function ResultPage() {
         } catch (error) {
             console.error("Error clearing cache:", error);
         }
-
-        localStorage.removeItem("formData");
-        localStorage.removeItem("selfieImage");
-        localStorage.removeItem("workflowId");
-        localStorage.removeItem("imagePath");
-        localStorage.removeItem("url");
     };
 
     return (
@@ -55,9 +59,13 @@ export default function ResultPage() {
                 <div className="result-image">
                     <img src={localStorage.getItem("url") || ""} alt="Generated Image" />
                 </div>
-                <div className="result-qr-code">
-                    <canvas id="qr-code"></canvas>
+                <div>
+                    <div className="result-qr-code">
+                        <canvas id="qr-code"></canvas>
+                    </div>
+                    <button onClick={reset} className='re-gen-button'>Neue Karte generieren</button>
                 </div>
+                
             </div>
         </div>
     );

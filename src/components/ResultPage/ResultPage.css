@@ -53,3 +53,19 @@ h2 {
         height: 120px;
     }
 }
+
+.re-gen-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #AF001E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.re-gen-button:hover {
+    background-color: #8d0614;
+}

@@ -28,7 +28,7 @@ export default function ResultPage() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    workflowId: localStorage.getItem("workflowId"),
+                    selfieId: localStorage.getItem("selfieId"),
                     imagePath: localStorage.getItem("imagePath"),
                 }),
             });

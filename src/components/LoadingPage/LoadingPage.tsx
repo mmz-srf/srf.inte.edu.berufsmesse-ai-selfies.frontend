@@ -44,7 +44,9 @@ export default function LoadingPage() {
                     break;
                 case "done":
                     setStatus("done");
-                    createCard(data.filename);
+                    const fileName = data.filename;
+                    localStorage.setItem("imagePath", fileName);
+                    createCard(fileName);
                     break;
                 default:
                     setStatus("unknown");

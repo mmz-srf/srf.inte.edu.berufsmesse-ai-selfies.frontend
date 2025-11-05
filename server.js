@@ -15,6 +15,8 @@ const httpsOptions = {
   cert: fs.readFileSync("./192.168.2.1.pem"),
 };
 
+app.use()
+
 app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url || "/", true);

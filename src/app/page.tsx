@@ -48,8 +48,13 @@ export default function Home() {
         };
     }, []);
 
+    const switchApp = () => {
+        window.location.href = "https://quiz.srf.ch/";
+    };
+
     return (
         <div>
+            <button className="switch-app-button" onClick={switchApp}>Wechsle zur Quiz App</button>
             <img src="/icons/SRF.png" alt="SRF Logo" className="srf-logo" />
             { !selfieImage && !formData && !url && <UploadPhoto /> }
             { selfieImage && !formData && !url && <FormPage /> }

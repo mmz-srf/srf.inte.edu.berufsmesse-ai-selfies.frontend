@@ -1,5 +1,4 @@
 import './LoadingPage.css';
-import { svgStringToPng } from '@/app/libs/svg2png';
 import { useEffect, useRef, useState } from 'react';
 import { FormData } from '@/app/libs/types/FormData';
 
@@ -61,12 +60,11 @@ export default function LoadingPage() {
         const formDataString = localStorage.getItem("formData");
         if (!formDataString) return;
         const formData = JSON.parse(formDataString) as FormData;
-        const { name, color } = formData;
+        const { name, color, age } = formData;
 
         const selfieId = localStorage.getItem("selfieId");
         if (!selfieId) return;
 
-        // TODO: replace template name with `srf-${color}.svg` when templates are done
         try {
             const response = await fetch('https://192.168.2.1:8443/api/v1/create-card', {
                 method: "POST",
@@ -74,7 +72,8 @@ export default function LoadingPage() {
                 body: JSON.stringify({
                     name: name,
                     imagePath: filename,
-                    template: 'srf-v1.svg',
+                    template: color,
+                    age: age
                     }),
                 });
 
@@ -84,7 +83,18 @@ export default function LoadingPage() {
                 
                 const data = await response.json();
                 console.log('Card created:', data);
-                const base64Image = await svgStringToPng(data.svg, 1050, 760);
+
+                // Call server-side API to generate PNG (server-only puppeteer)
+                const genResp = await fetch('/api/generate-png', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ html: data.html }),
+                });
+
+                if (!genResp.ok) throw new Error('Failed to generate PNG');
+
+                const genData = await genResp.json();
+                const base64Image = genData.image;
                 try {
                     const uploadResponse = await fetch('https://192.168.2.1:8443/api/v1/upload-card', {
                         method: "POST",

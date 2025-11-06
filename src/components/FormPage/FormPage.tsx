@@ -10,7 +10,12 @@ export default function FormPage() {
     const [gender, setGender] = useState<string>("");
     const [color, setColor] = useState<string>("");
 
-    const availableColors = ["#30ede9ff", "#6c2672ff", "#acfb94ff", "#ffff5bff"];
+    const availableColors = [
+        {"id": "aqua", "hex": "#30ede9ff"},
+        {"id": "purple", "hex": "#6c2672ff"},
+        {"id": "lime", "hex": "#acfb94ff"},
+        {"id": "yellow", "hex": "#ffff5bff"}
+    ];
     const genders = ["Männlich", "Weiblich", "Divers"];
 
     const handleAgeChange = (inputAge: string) => {
@@ -152,10 +157,10 @@ export default function FormPage() {
                     <div className="color-options">
                         {availableColors.map((col) => (
                             <div
-                                key={col}
-                                className={`color-option ${color === col ? "selected" : ""}`}
-                                style={{ backgroundColor: col }}
-                                onClick={() => setColor(col)}
+                                key={col.id}
+                                className={`color-option ${color === col.id ? "selected" : ""}`}
+                                style={{ backgroundColor: col.hex }}
+                                onClick={() => setColor(col.id)}
                             />
                         ))}
                     </div>

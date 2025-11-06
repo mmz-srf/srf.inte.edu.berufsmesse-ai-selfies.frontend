@@ -25,7 +25,7 @@ export default function Home() {
             setFormData(null);
         }
 
-        // Get SVG
+        // Get url to image on s3 bucket
         const imageUrl = localStorage.getItem('url');
         setUrl(imageUrl);
     };

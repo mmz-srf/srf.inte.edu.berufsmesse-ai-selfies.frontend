@@ -15,6 +15,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ image: base64 });
   } catch (err: any) {
     console.error('API /api/generate-png error:', err);
-    return NextResponse.json({ error: err?.message || String(err) }, { status: 500 });
+    const isProd = process.env.NODE_ENV === 'production';
+    const payload: any = { error: err?.message || String(err) };
+    if (!isProd && err?.stack) payload.stack = err.stack;
+    return NextResponse.json(payload, { status: 500 });
   }
 }

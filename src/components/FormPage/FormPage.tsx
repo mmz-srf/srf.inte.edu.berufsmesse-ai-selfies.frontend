@@ -10,6 +10,22 @@ export default function FormPage() {
     const [gender, setGender] = useState<string>("");
     const [color, setColor] = useState<string>("");
 
+
+    const hairColors = [
+        {"id": "brown", "value": "Braun"},
+        {"id": "blond", "value": "Blond"},
+        {"id": "black", "value": "Schwarz"},
+        {"id": "brown-blond", "value": "Braun-Blond"},
+        {"id": "white", "value": "Weiss"},
+        {"id": "bald", "value": "Keine Haare"},
+        {"id": "grey", "value": "Grau"},
+        {"id": "red", "value": "Rot"},
+        {"id": "purple", "value": "Lila"},
+        {"id": "pink", "value": "Rosa"},
+        {"id": "blue", "value": "Blau"},
+        {"id": "colorful", "value": "Bunt"}
+    ];
+
     const availableColors = [
         {"id": "aqua", "hex": "#30ede9ff"},
         {"id": "purple", "hex": "#6c2672ff"},
@@ -125,14 +141,16 @@ export default function FormPage() {
                 </div>
                 <div className="question">
                     <label htmlFor="hairColor">Was ist deine Haarfarbe?</label>
-                    <input
-                        type="text"
-                        id="hairColor"
-                        name="hairColor"
-                        placeholder="z.B. Braun"
-                        value={hairColor}
-                        onChange={(e) => setHairColor(e.target.value)}
-                    />
+                    <div className="hair-color-options">
+                   <select name="hairColor" id="hairColor" value={hairColor} onChange={(e) => setHairColor(e.target.value)}>
+                       <option value="">Wähle eine Haarfarbe</option>
+                       {hairColors.map((color) => (
+                           <option key={color.id} value={color.id}>
+                               {color.value}
+                           </option>
+                       ))}
+                   </select>
+                   </div>
                 </div>
                 <div className="question">
                     <label htmlFor="gender">Was ist dein Geschlecht?</label>

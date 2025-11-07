@@ -9,7 +9,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing html in request body' }, { status: 400 });
     }
 
-    const base64 = await htmlStringToPng(html);
+  const origin = request.headers.get('origin') || process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const base64 = await htmlStringToPng(html, origin);
 
     return NextResponse.json({ image: base64 });
   } catch (err: any) {

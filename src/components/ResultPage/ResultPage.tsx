@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './ResultPage.css';
 import QRCode from 'qrcode'
 
 export default function ResultPage() {
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const url = localStorage.getItem("url");
         if (!url) return;
+        setImageUrl(url);
 
         // Generate QR code
         const qrCodeCanvas = document.getElementById('qr-code') as HTMLCanvasElement;
@@ -57,7 +59,7 @@ export default function ResultPage() {
             <h2>Downloade sie über den QR-Code.</h2>
             <div className="result-content">
                 <div className="result-image">
-                    <img src={localStorage.getItem("url") || ""} alt="Generated Image" />
+                    {imageUrl && <img src={imageUrl} alt="Generated Image" />}
                 </div>
                 <div>
                     <div className="result-qr-code">

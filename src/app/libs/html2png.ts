@@ -1,23 +1,21 @@
 import puppeteer from 'puppeteer';
-import fs from 'fs';
-import path from 'path';
 
-export async function htmlStringToPng(html: string, baseUrl?: string): Promise<string> {
+export async function htmlStringToPng(html: string): Promise<string> {
   let browser;
   
   try {
     browser = await puppeteer.launch({ 
       headless: true,
+      ignoreHTTPSErrors: true,
       args: [
-        ...( { ignoreHTTPSErrors: true } as any ),
-        '--no-sandbox',
+        '--no-sandbox', 
         '--disable-setuid-sandbox',
         '--disable-web-security',
         '--disable-features=VizDisplayCompositor',
         '--ignore-certificate-errors',
         '--allow-insecure-localhost'
       ]
-    });
+    } as any);
     
     const page = await browser.newPage();
     await page.setViewport({ width: 670, height: 938 });
@@ -43,42 +41,13 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
     });
 
     await page.setRequestInterception(true);
-    page.on('request', (request) => request.continue());
+    page.on('request', (request) => {
+      request.continue();
+    });
 
-    let content = html;
-    try {
-      const hasBase = /<base\s+href=["']?[^>]+>/i.test(html);
-      const resolvedBase = baseUrl || process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
-      if (!hasBase && resolvedBase) {
-        if (/<head[\s>]/i.test(html)) {
-          content = html.replace(/(<head[^>]*>)/i, `$1<base href="${resolvedBase}" />`);
-        } else {
-          content = `<head><base href="${resolvedBase}" /></head>` + html;
-        }
-      }
-      content = content.replace(/(<img[^>]+src=["'])(\/images\/["'a-zA-Z0-9_\-\/\.]+)(["'][^>]*>)/gi, (m, pre, src, post) => {
-        try {
-          const rel = src.replace(/^\//, '');
-          const filePath = path.join(process.cwd(), 'public', rel);
-          if (fs.existsSync(filePath)) {
-            const buf = fs.readFileSync(filePath);
-            const ext = path.extname(filePath).toLowerCase().replace('.', '') || 'png';
-            const mime = ext === 'svg' ? 'image/svg+xml' : `image/${ext}`;
-            const data = `data:${mime};base64,${buf.toString('base64')}`;
-            return `${pre}${data}${post}`;
-          }
-        } catch (e) {
-        }
-        return m;
-      });
-    } catch (e) {
-      console.error('Error injecting base tag:', e);
-    }
-
-    // Allow more time for slow resources; 30s
-    await page.setContent(content, {
+    await page.setContent(html, {
       waitUntil: ['networkidle0', 'domcontentloaded'],
-      timeout: 30000
+      timeout: 8000 // TODO: adjust time (8s is way too long)
     });
 
     await page.addStyleTag({
@@ -96,7 +65,6 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
           (document.body.style as any).padding = '0';
         }
       } catch (e) {
-        console.error('Error setting document styles:', e);
       }
     });
 

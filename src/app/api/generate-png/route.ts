@@ -9,15 +9,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing html in request body' }, { status: 400 });
     }
 
-  const origin = request.headers.get('origin') || 'https://192.168.2.1:3000';
-  const base64 = await htmlStringToPng(html, origin);
+    const base64 = await htmlStringToPng(html);
 
     return NextResponse.json({ image: base64 });
   } catch (err: any) {
     console.error('API /api/generate-png error:', err);
-    const isProd = process.env.NODE_ENV === 'production';
-    const payload: any = { error: err?.message || String(err) };
-    if (!isProd && err?.stack) payload.stack = err.stack;
-    return NextResponse.json(payload, { status: 500 });
+    return NextResponse.json({ error: err?.message || String(err) }, { status: 500 });
   }
 }

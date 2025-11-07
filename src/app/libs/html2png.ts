@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-export async function htmlStringToPng(html: string): Promise<string> {
+export async function htmlStringToPng(html: string, baseUrl?: string): Promise<string> {
   let browser;
   
   try {
@@ -22,7 +22,22 @@ export async function htmlStringToPng(html: string): Promise<string> {
       request.continue();
     });
 
-    await page.setContent(html, {
+    let content = html;
+    try {
+      const hasBase = /<base\s+href=["']?[^>]+>/i.test(html);
+      const resolvedBase = baseUrl || process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
+      if (!hasBase && resolvedBase) {
+        if (/<head[\s>]/i.test(html)) {
+          content = html.replace(/(<head[^>]*>)/i, `$1<base href="${resolvedBase}" />`);
+        } else {
+          content = `<head><base href="${resolvedBase}" /></head>` + html;
+        }
+      }
+    } catch (e) {
+      console.error('Error injecting base tag:', e);
+    }
+
+    await page.setContent(content, {
       waitUntil: ['networkidle0', 'domcontentloaded'],
       timeout: 8000 // TODO: adjust time (8s is way too long)
     });
@@ -42,7 +57,7 @@ export async function htmlStringToPng(html: string): Promise<string> {
           (document.body.style as any).padding = '0';
         }
       } catch (e) {
-        // ignore
+        console.error('Error setting document styles:', e);
       }
     });
 

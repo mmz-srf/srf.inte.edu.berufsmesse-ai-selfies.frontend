@@ -15,7 +15,7 @@ export async function htmlStringToPng(html: string): Promise<string> {
     });
     
     const page = await browser.newPage();
-    await page.setViewport({ width: 1200, height: 800 });
+    await page.setViewport({ width: 670, height: 938 });
 
     await page.setRequestInterception(true);
     page.on('request', (request) => {
@@ -25,6 +25,25 @@ export async function htmlStringToPng(html: string): Promise<string> {
     await page.setContent(html, {
       waitUntil: ['networkidle0', 'domcontentloaded'],
       timeout: 8000 // TODO: adjust time (8s is way too long)
+    });
+
+    await page.addStyleTag({
+      content: 'html, body { margin: 0 !important; padding: 0 !important; } *, *::before, *::after { box-sizing: border-box; }'
+    });
+
+    await page.evaluate(() => {
+      try {
+        if (document && document.documentElement) {
+          (document.documentElement.style as any).margin = '0';
+          (document.documentElement.style as any).padding = '0';
+        }
+        if (document && document.body) {
+          (document.body.style as any).margin = '0';
+          (document.body.style as any).padding = '0';
+        }
+      } catch (e) {
+        // ignore
+      }
     });
 
     await page.evaluateHandle('document.fonts.ready');

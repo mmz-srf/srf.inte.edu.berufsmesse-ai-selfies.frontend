@@ -32,6 +32,16 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
       }
     });
 
+    // Forward browser console messages to server logs for debugging
+    page.on('console', (msg) => {
+      try {
+        const text = msg.text();
+        console.log('PAGE CONSOLE:', text);
+      } catch (e) {
+        console.log('PAGE CONSOLE (err reading)');
+      }
+    });
+
     await page.setRequestInterception(true);
     page.on('request', (request) => request.continue());
 
@@ -65,9 +75,10 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
       console.error('Error injecting base tag:', e);
     }
 
+    // Allow more time for slow resources; 30s
     await page.setContent(content, {
       waitUntil: ['networkidle0', 'domcontentloaded'],
-      timeout: 8000 // TODO: adjust time (8s is way too long)
+      timeout: 30000
     });
 
     await page.addStyleTag({

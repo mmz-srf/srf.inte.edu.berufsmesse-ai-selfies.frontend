@@ -91,13 +91,9 @@ export default function LoadingPage() {
                     body: JSON.stringify({ html: data.html }),
                 });
 
-                const genData = await genResp.json();
-                if (!genResp.ok) {
-                    const msg = genData?.error || genData?.message || 'Failed to generate PNG';
-                    console.error('Generate PNG error details:', genData);
-                    throw new Error(msg + (genData?.stack ? '\n' + genData.stack : ''));
-                }
+                if (!genResp.ok) throw new Error('Failed to generate PNG');
 
+                const genData = await genResp.json();
                 const base64Image = genData.image;
                 try {
                     const uploadResponse = await fetch('https://192.168.2.1:8443/api/v1/upload-card', {

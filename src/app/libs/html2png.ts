@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 
 export async function htmlStringToPng(html: string, baseUrl?: string): Promise<string> {
   let browser;
@@ -7,20 +9,31 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
     browser = await puppeteer.launch({ 
       headless: true,
       args: [
-        '--no-sandbox', 
+        ...( { ignoreHTTPSErrors: true } as any ),
+        '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-web-security',
-        '--disable-features=VizDisplayCompositor'
+        '--disable-features=VizDisplayCompositor',
+        '--ignore-certificate-errors',
+        '--allow-insecure-localhost'
       ]
     });
     
     const page = await browser.newPage();
     await page.setViewport({ width: 670, height: 938 });
 
-    await page.setRequestInterception(true);
-    page.on('request', (request) => {
-      request.continue();
+    page.on('requestfailed', (req) => {
+      console.warn('Request failed:', req.url(), req.failure()?.errorText);
     });
+    page.on('response', (res) => {
+      const status = res.status();
+      if (status >= 400) {
+        console.warn('Non-OK response:', res.url(), status);
+      }
+    });
+
+    await page.setRequestInterception(true);
+    page.on('request', (request) => request.continue());
 
     let content = html;
     try {
@@ -33,6 +46,21 @@ export async function htmlStringToPng(html: string, baseUrl?: string): Promise<s
           content = `<head><base href="${resolvedBase}" /></head>` + html;
         }
       }
+      content = content.replace(/(<img[^>]+src=["'])(\/images\/["'a-zA-Z0-9_\-\/\.]+)(["'][^>]*>)/gi, (m, pre, src, post) => {
+        try {
+          const rel = src.replace(/^\//, '');
+          const filePath = path.join(process.cwd(), 'public', rel);
+          if (fs.existsSync(filePath)) {
+            const buf = fs.readFileSync(filePath);
+            const ext = path.extname(filePath).toLowerCase().replace('.', '') || 'png';
+            const mime = ext === 'svg' ? 'image/svg+xml' : `image/${ext}`;
+            const data = `data:${mime};base64,${buf.toString('base64')}`;
+            return `${pre}${data}${post}`;
+          }
+        } catch (e) {
+        }
+        return m;
+      });
     } catch (e) {
       console.error('Error injecting base tag:', e);
     }

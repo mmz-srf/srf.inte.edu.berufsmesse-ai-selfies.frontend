@@ -24,8 +24,8 @@
 .form-questions input[type="email"] {
     box-sizing: border-box;
     width: 100%;
-    max-width: 532px; /* match the form column */
-    min-height: 44px; /* match select height */
+    max-width: 532px;
+    min-height: 44px;
 }
 
 .question {

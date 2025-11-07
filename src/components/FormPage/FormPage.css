@@ -13,8 +13,19 @@
     flex-direction: column;
     gap: clamp(1.5rem, 4vw, 2.5rem);
     width: 100%;
-    max-width: 500px;
+    max-width: 532px;
     min-width: 280px;
+}
+
+/* Make text/number inputs inside the form match the column width and sizing
+   (prevents width + padding from overflowing the container) */
+.form-questions input[type="text"],
+.form-questions input[type="number"],
+.form-questions input[type="email"] {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 532px;
+    min-height: 44px;
 }
 
 .question {
@@ -170,4 +181,74 @@ span {
 .next-step-button:focus-visible {
     outline: 2px solid #ffffff;
     outline-offset: 2px;
+}
+
+/* Hair color dropdown styling */
+.hair-color-options {
+    width: 100%;
+    margin: 0.5rem auto 0;
+    display: block;
+    position: relative; 
+    max-width: 532px; 
+}
+
+.hair-color-options select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 7px; 
+    padding: 12px 44px 12px 16px; 
+    height: 44px; 
+    line-height: 1.2;
+    box-shadow: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: box-shadow 200ms ease, transform 120ms ease;
+    font-family: inherit;
+    color: #000000;
+    font-size: clamp(14px, 2.2vw, 16px);
+}
+
+.hair-color-options select:hover {
+    border-color: rgba(0,0,0,0.2);
+}
+
+.hair-color-options select:focus {
+    outline: none;
+    box-shadow:
+      0 0 0 2px rgba(175, 0, 30, 0.6),
+      0 0 12px 6px rgba(175, 0, 30, 0.35);
+}
+
+.hair-color-options::after {
+    content: "";
+    position: absolute;
+    right: 16px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23AF001E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.95;
+}
+
+@media (max-width: 480px) {
+    .hair-color-options select {
+        padding: 0.85rem 2.5rem 0.85rem 0.9rem;
+        font-size: 16px;
+    }
+}
+
+.hair-color-options option {
+    padding: 0.25rem 0.5rem;
+    color: #222;
+    background: #fff;
 }

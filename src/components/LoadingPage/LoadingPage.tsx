@@ -76,7 +76,6 @@ export default function LoadingPage() {
                     imagePath: filename,
                     template: color,
                     age: age,
-                    hairColor: hairColor,
                 }),
             });
 

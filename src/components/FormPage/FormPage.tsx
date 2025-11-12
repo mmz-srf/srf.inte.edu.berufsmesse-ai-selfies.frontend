@@ -94,6 +94,8 @@ export default function FormPage() {
                 body: JSON.stringify({
                     imageBase64: base64,
                     selfieId: selfieId,
+                    hairColor: hairColor,
+                    gender: gender
                 }),
             });
 

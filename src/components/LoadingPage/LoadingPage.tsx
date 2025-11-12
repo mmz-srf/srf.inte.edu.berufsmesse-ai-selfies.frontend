@@ -1,6 +1,6 @@
 import './LoadingPage.css';
 import { useEffect, useRef, useState } from 'react';
-import { FormData } from '@/app/libs/types/FormData';
+import { FormData } from '@/app/libs/types/models';
 
 export default function LoadingPage() {
     const [status, setStatus] = useState<string>('pending');
@@ -60,7 +60,9 @@ export default function LoadingPage() {
         const formDataString = localStorage.getItem("formData");
         if (!formDataString) return;
         const formData = JSON.parse(formDataString) as FormData;
-        const { name, color, age } = formData;
+        const { name, color, age, hairColor } = formData;
+
+        console.log("Creating card with:", { name, color, age, hairColor });
 
         const selfieId = localStorage.getItem("selfieId");
         if (!selfieId) return;
@@ -73,9 +75,10 @@ export default function LoadingPage() {
                     name: name,
                     imagePath: filename,
                     template: color,
-                    age: age
-                    }),
-                });
+                    age: age,
+                    hairColor: hairColor,
+                }),
+            });
 
                 if (!response.ok) {
                     throw new Error(response.statusText);
@@ -84,7 +87,7 @@ export default function LoadingPage() {
                 const data = await response.json();
                 console.log('Card created:', data);
 
-                // Call server-side API to generate PNG (server-only puppeteer)
+                // Call server-side API to generate PNG (puppeteer)
                 const genResp = await fetch('/api/generate-png', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

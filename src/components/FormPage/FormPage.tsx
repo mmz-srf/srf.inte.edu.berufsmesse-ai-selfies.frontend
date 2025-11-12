@@ -10,7 +10,6 @@ export default function FormPage() {
     const [gender, setGender] = useState<string>("");
     const [color, setColor] = useState<string>("");
 
-
     const hairColors = [
         {"id": "brown", "value": "Braun"},
         {"id": "blond", "value": "Blond"},
@@ -32,6 +31,7 @@ export default function FormPage() {
         {"id": "lime", "hex": "#acfb94ff"},
         {"id": "yellow", "hex": "#ffff5bff"}
     ];
+
     const genders = ["Männlich", "Weiblich", "Divers"];
 
     const handleAgeChange = (inputAge: string) => {

@@ -1,4 +1,4 @@
-export type FormData = {
+export interface FormData {
     name: string;
     age: number;
     hairColor: string;

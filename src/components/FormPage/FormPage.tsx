@@ -1,6 +1,6 @@
 import "./FormPage.css";
 import { useState } from "react";
-import { FormData } from "../../app/libs/types/FormData";
+import { FormData } from "@/app/libs/types/models";
 import { v4 as uuid } from "uuid";
 
 export default function FormPage() {
@@ -67,11 +67,11 @@ export default function FormPage() {
         }
 
         const formData: FormData = {
-            name,
+            name: name,
             age: parseInt(age),
-            hairColor,
-            gender,
-            color,
+            hairColor: hairColor,
+            gender: gender,
+            color: color,
         };
         localStorage.setItem("formData", JSON.stringify(formData));
 

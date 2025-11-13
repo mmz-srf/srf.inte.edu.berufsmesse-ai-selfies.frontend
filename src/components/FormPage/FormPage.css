@@ -221,10 +221,23 @@ span {
       0 0 12px 6px rgba(175, 0, 30, 0.35);
 }
 
+.hair-color-options option:hover {
+    background-color: #c0c0c0;
+}
+
+.hair-color-options option:active {
+    background-color: #AF001E;
+}
+
+.hair-color-options option {
+    background-color: #d9d9d9;
+    border: none;
+}
+
 .hair-color-options::after {
     content: "";
     position: absolute;
-    right: 16px; 
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
     width: 12px;

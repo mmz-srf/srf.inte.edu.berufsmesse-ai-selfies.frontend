@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './ResultPage.css';
 import QRCode from 'qrcode'
+import { reset } from '@/app/libs/reset';
 
 export default function ResultPage() {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -21,16 +22,6 @@ export default function ResultPage() {
         )
         clearCache();
     }, []);
-
-    const reset = () => {
-        localStorage.removeItem("formData");
-        localStorage.removeItem("selfieImage");
-        localStorage.removeItem("workflowId");
-        localStorage.removeItem("imagePath");
-        localStorage.removeItem("url");
-        localStorage.removeItem("selfieId");
-        window.dispatchEvent(new Event("storage"));
-    }
 
     const clearCache = async () => {
         try {

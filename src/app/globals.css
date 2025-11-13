@@ -79,7 +79,7 @@ button:disabled:hover {
     cursor: not-allowed;
 }
 
-.switch-app-button {
+.switch-app-button, .restart-button {
   position: absolute;
   bottom: 30px;
   left: 10px;
@@ -94,6 +94,10 @@ button:disabled:hover {
   transition: background-color 0.3s ease;
 }
 
-.switch-app-button:hover {
+.switch-app-button:hover, .restart-button:hover {
   background-color: #8d0614;
+}
+
+.restart-button {
+    bottom: 80px;
 }

@@ -5,6 +5,7 @@ import FormPage from "@/components/FormPage/FormPage";
 import LoadingPage from "@/components/LoadingPage/LoadingPage";
 import UploadPhoto from "@/components/UploadPhoto/UploadPhoto";
 import { useEffect, useState } from "react";
+import { reset } from "./libs/reset";
 
 export default function Home() {
     const [selfieImage, setSelfieImage] = useState<string | null>(null);
@@ -54,6 +55,7 @@ export default function Home() {
 
     return (
         <div>
+            <button className="restart-button" onClick={reset}>Von vorne anfangen</button>
             <button className="switch-app-button" onClick={switchApp}>Wechsle zur Quiz App</button>
             <img src="/icons/SRF.png" alt="SRF Logo" className="srf-logo" />
             { !selfieImage && !formData && !url && <UploadPhoto /> }

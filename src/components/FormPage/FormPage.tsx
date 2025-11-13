@@ -15,6 +15,7 @@ export default function FormPage() {
         {"id": "blond", "value": "Blond"},
         {"id": "black", "value": "Schwarz"},
         {"id": "brown-blond", "value": "Braun-Blond"},
+        {"id": "orange", "value": "Orange"},
         {"id": "white", "value": "Weiss"},
         {"id": "bald", "value": "Keine Haare"},
         {"id": "grey", "value": "Grau"},

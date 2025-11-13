@@ -13,7 +13,7 @@ const handle = app.getRequestHandler();
 const httpsOptions = {
   key: fs.readFileSync("./192.168.2.1-key.pem"),
   cert: fs.readFileSync("./192.168.2.1.pem"),
-};
+}; 
 
 app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {

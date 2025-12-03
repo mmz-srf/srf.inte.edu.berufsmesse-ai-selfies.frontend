@@ -11,7 +11,7 @@
     "sonar": "sonar-scanner"
   },
   "dependencies": {
-    "next": "15.5.5",
+    "next": "15.5.7",
     "puppeteer": "^24.29.0",
     "qrcode": "^1.5.4",
     "react": "19.1.0",

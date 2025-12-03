@@ -22,7 +22,7 @@ jobs:
       - run: npm run build
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        run: npm run sonar
         env:
           SONAR_TOKEN: ${{ secrets.EDU_SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io

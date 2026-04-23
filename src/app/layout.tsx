@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Trading-Card AI",
-  description: "Generate your own trading cards using AI",
+  title: "SRF Selfie AI",
+  description: "Generate an AI selfie with a SRF background",
 };
 
 export default function RootLayout({

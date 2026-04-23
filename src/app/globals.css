@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'SRG SSR Type Text App';
   src: url('/fonts/SRGSSRType_Bd.ttf') format('truetype');
@@ -18,86 +22,4 @@ body {
 *::selection {
     color: rgb(255, 255, 255);
     background-color: #af001d;
-}
-
-.flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.hidden {
-    display: none;
-}
-
-.srf-logo {
-    position: absolute;
-    width: 75px;
-    height: 49px;
-    top: 30px;
-    left: 30px;
-}
-
-input {
-    background-color: #d9d9d9;
-    border: none;
-    width: 100%;
-    border-radius: 7px;
-    padding: 12px 16px;
-    transition: box-shadow 200ms ease;
-}
-
-input::placeholder {
-    color: #a1a1a1;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus {
-    outline: none;
-    box-shadow:
-      0 0 0 2px rgba(175, 0, 30, 0.6),
-      0 0 12px 6px rgba(175, 0, 30, 0.35);
-}
-
-.shake {
-    animation: shake 0.5s;
-}
-
-@keyframes shake {
-    0% { transform: translate(0); }
-    25% { transform: translate(-3px, 0); }
-    50% { transform: translate(3px, 0); }
-    75% { transform: translate(-3px, 0); }
-    100% { transform: translate(0); }
-}
-
-button:disabled,
-button:disabled:hover {
-    background-color: #a9a9a9;
-    cursor: not-allowed;
-}
-
-.switch-app-button, .restart-button {
-  position: absolute;
-  bottom: 30px;
-  left: 10px;
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #AF001E;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.switch-app-button:hover, .restart-button:hover {
-  background-color: #8d0614;
-}
-
-.restart-button {
-    bottom: 80px;
 }

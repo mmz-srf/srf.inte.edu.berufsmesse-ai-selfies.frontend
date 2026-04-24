@@ -19,6 +19,10 @@ body {
     background-color: #F5F5F2;
 }
 
+.font-regular {
+    font-family: 'SRG SSR Regular';
+}
+
 *::selection {
     color: rgb(255, 255, 255);
     background-color: #af001d;

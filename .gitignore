@@ -44,4 +44,4 @@ next-env.d.ts
 
 old/
 
-*.mp4
+public/videos/

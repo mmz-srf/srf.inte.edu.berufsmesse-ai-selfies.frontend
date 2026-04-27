@@ -11,11 +11,6 @@ export function previousPage() {
     const currentPage = getLocalStorageData()?.page || 1;
     let previousPage = currentPage - 1;
 
-    // you can't return to page 0
-    if (previousPage <= 0) {
-        previousPage = 1;
-    }
-
     updatePage(previousPage);
     return previousPage;
 }

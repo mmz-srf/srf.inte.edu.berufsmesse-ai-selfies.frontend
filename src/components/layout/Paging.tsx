@@ -23,7 +23,7 @@ export default function Paging({ currentPage, nextPageAllowed, onNextPageClick }
                 alt="Previous"
                 width={52}
                 height={52}
-                className={`cursor-pointer ${currentPage === 1 ? "opacity-0 pointer-events-none" : ""}`}
+                className={`cursor-pointer ${currentPage === 0 ? "opacity-0 pointer-events-none" : ""}`}
                 onClick={previousPage}
             />
             <Image

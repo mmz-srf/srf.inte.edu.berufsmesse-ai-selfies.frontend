@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
 
 export default function LoadingPage({ page }: { page: number }) {
     const [generationComplete, setGenerationComplete] = useState(false);
+
+    // on page load, request image generation and poll status endpoint every second
+    useEffect(() => {
+        
+    }, [])
 
     return (
         <PageContainer page={page} nextPageAllowed={generationComplete} onNextPageClick={() => {}}>

@@ -1,6 +1,21 @@
 import {LocalStorageData} from "@/app/libs/model";
 
+let inFlightUpload: Promise<Response | undefined> | null = null;
+
 export async function uploadImage() {
+    if (inFlightUpload) {
+        return inFlightUpload;
+    }
+
+    inFlightUpload = uploadImageInternal();
+    try {
+        return await inFlightUpload;
+    } finally {
+        inFlightUpload = null;
+    }
+}
+
+async function uploadImageInternal() {
     const storedData = localStorage.getItem("pageData");
     let data;
     if (storedData) {
@@ -12,10 +27,16 @@ export async function uploadImage() {
     try {
         // Fetch the image from the API
         const imageResponse = await fetch('/api/latest');
+        let imageBlob;
         if (!imageResponse.ok) {
-            throw new Error('Failed to fetch image');
+            const fallbackResponse = await fetch('/assets/backgrounds/Arena.jpg');
+            if (!fallbackResponse.ok) {
+                throw new Error('Failed to fetch fallback image');
+            }
+            imageBlob = await fallbackResponse.blob();
+        } else {
+            imageBlob = await imageResponse.blob();
         }
-        const imageBlob = await imageResponse.blob();
 
         console.log("Fetched image from Next.js API route");
 

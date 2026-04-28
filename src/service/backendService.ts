@@ -17,6 +17,8 @@ export async function uploadImage() {
         }
         const imageBlob = await imageResponse.blob();
 
+        console.log("Fetched image from Next.js API route");
+
         // Convert blob to base64
         const base64Image = await new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
@@ -27,6 +29,8 @@ export async function uploadImage() {
 
         // Remove the data:image/jpeg;base64, prefix to get just the base64 string
         const base64String = base64Image.split(',')[1];
+
+        console.log("Sending request to backend with...")
 
         const response = await fetch('http://localhost:8080/api/v1/card-image', {
             method: "POST",

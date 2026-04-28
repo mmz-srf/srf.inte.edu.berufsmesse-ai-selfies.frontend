@@ -41,7 +41,7 @@ export default function GenderPage({ page}: { page: number }) {
     return (
         <PageContainer page={page} nextPageAllowed={!!gender} onNextPageClick={handleNextPageClick}>
             <Title title="Wie möchtest du angesprochen werden?" />
-            <div className="w-2/5 h-full items-center justify-around flex flex-row mt-10">
+            <div className="w-full max-w-4xl h-full items-center justify-center sm:justify-around flex flex-row flex-wrap gap-8 sm:gap-12 mt-6 sm:mt-10 px-4">
                 <GenderOption gender="male" onSelect={() => { handleGenderSelect("male") }} selected={maleSelected} />
                 <GenderOption gender="female" onSelect={() => { handleGenderSelect("female") }} selected={femaleSelected} />
             </div>

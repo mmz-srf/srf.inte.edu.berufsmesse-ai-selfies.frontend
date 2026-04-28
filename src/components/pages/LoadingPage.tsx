@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
+import {uploadImage} from "@/service/backendService";
 
 export default function LoadingPage({ page }: { page: number }) {
     const [generationComplete, setGenerationComplete] = useState(false);
 
     // on page load, request image generation and poll status endpoint every second
     useEffect(() => {
-        
+        uploadImage()
     }, [])
 
     return (

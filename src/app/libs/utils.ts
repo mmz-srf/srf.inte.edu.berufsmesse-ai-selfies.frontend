@@ -20,7 +20,7 @@ function updatePage(page: number) {
         page: page,
         name: getLocalStorageData()?.name || "",
         background: getLocalStorageData()?.background || "Meteo",
-        gender: getLocalStorageData()?.gender || "other",
+        gender: getLocalStorageData()?.gender || "",
     });
 }
 
@@ -42,7 +42,7 @@ export function saveDefaultData() {
         page: 0,
         name: "",
         background: "Meteo",
-        gender: "other",
+        gender: "",
     };
     setLocalStorageData(defaultData);
 }

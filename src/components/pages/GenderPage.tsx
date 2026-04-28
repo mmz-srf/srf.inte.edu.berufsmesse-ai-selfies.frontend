@@ -32,7 +32,7 @@ export default function GenderPage({ page}: { page: number }) {
         const storedData = localStorage.getItem("pageData");
         if (storedData) {
             const data: LocalStorageData = JSON.parse(storedData);
-            data.gender = gender as 'male' | 'female' | 'other';
+            data.gender = gender as 'male' | 'female';
             localStorage.setItem("pageData", JSON.stringify(data));
             window.dispatchEvent(new Event("storage"));
         }

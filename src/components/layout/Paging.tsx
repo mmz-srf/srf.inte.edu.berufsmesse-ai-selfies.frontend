@@ -17,7 +17,7 @@ export default function Paging({ currentPage, nextPageAllowed, onNextPageClick }
     }
 
     return (
-        <div className="w-full flex flex-row items-center justify-around p-5 absolute bottom-32 left-0">
+        <div className="w-full flex flex-row items-center justify-around py-5 absolute bottom-4 sm:bottom-6 lg:bottom-8 left-0">
             <Image
                 src={iconLeft}
                 alt="Previous"

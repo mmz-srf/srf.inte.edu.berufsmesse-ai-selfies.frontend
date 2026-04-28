@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function StartPage({page}: { page: number }) {
   const imgRef = useRef(null);
-    const [imageVersion, setImageVersion] = useState(() => Date.now());
+    const [imageVersion, setImageVersion] = useState(0);
 
     useEffect(() => {
         const eventSource = new EventSource("/api/events");

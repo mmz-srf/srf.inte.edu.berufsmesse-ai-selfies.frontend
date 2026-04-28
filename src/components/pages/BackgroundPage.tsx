@@ -42,7 +42,7 @@ export default function BackgroundPage({ page }: { page: number }) {
                     backgrounds.map((background) => (
                         <div key={background} className="flex flex-col gap-4 justify-center items-center w-[30%] min-w-[260px] transition-all duration-300 ease-in-out">
                             <div className={`p-[4px] border-2 ${selectedBackground === background ? "border-srf-r-600" : "border-transparent"} rounded-xl transition-all duration-300 ease-in-out`}>
-                                <img src={`/assets/backgrounds/${background}.jpg`} alt={background} className="rounded-xl object-cover w-96 h-64" />
+                                <img src={`/assets/backgrounds/${background}.jpg`} alt={background} className="rounded-xl object-cover w-96 h-64 cursor-pointer" onClick={() => { setSelectedBackground(background) }} />
                             </div>
                             <button 
                                 className={`py-3 px-8 ${selectedBackground === background ? "bg-srf-wg-700" : "bg-srf-r-700 hover:bg-srf-r-800"} text-white w-fit rounded-xl text-4xl font-regular duration-200 ease-in-out transition-all`}

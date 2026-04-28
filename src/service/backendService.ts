@@ -1,6 +1,6 @@
 import {LocalStorageData} from "@/app/libs/model";
 
-let inFlightUpload: Promise<Response | undefined> | null = null;
+let inFlightUpload: Promise<Blob | undefined> | null = null;
 
 export async function uploadImage() {
     if (inFlightUpload) {
@@ -70,7 +70,16 @@ async function uploadImageInternal() {
             throw new Error('Failed to upload image');
         }
 
-        return response;
+        const responseData = await response.json();
+        const imageBase64 = responseData.image;
+
+        // Convert base64 string back to blob
+        const imageBuffer = Buffer.from(imageBase64, 'base64');
+        const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
+
+        console.log("Received response from backend");
+
+        return imageBlobResponse;
     } catch (error) {
         console.error('Error uploading image:', error);
         throw error;

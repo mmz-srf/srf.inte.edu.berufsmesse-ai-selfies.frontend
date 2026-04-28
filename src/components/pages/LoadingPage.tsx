@@ -5,11 +5,16 @@ import {uploadImage} from "@/service/backendService";
 
 export default function LoadingPage({ page }: { page: number }) {
     const [generationComplete, setGenerationComplete] = useState(false);
+    const [resultImageBlock, setResultImageBlock] = useState<Blob | null>(null);
 
     // on page load, request image generation and poll status endpoint every second
     useEffect(() => {
-        uploadImage()
-    }, [])
+        const fetchData = async () => {
+            const resultImage = await uploadImage();
+            setResultImageBlock(resultImage || null);
+        };
+        fetchData();
+    }, []);
 
     return (
         <PageContainer page={page} nextPageAllowed={generationComplete} onNextPageClick={() => {}}>
@@ -18,6 +23,8 @@ export default function LoadingPage({ page }: { page: number }) {
                 <video autoPlay muted loop className="rounded-xl max-h-[60vh]">
                     <source src="/videos/loading.mp4" type="video/mp4" />
                 </video>
+
+                <img src={resultImageBlock ? URL.createObjectURL(resultImageBlock) : ""} alt="Generated Image" />
             </div>
         </PageContainer>
     )

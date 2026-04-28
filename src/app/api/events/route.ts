@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 
 const PHOTO_DIR = '/home/berufsmesse/photos';
 const clients = new Set<ReadableStreamDefaultController<string>>();

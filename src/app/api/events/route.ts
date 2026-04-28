@@ -1,7 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 
-const PHOTO_DIR = '/home/pi/photos';
+const PHOTO_DIR = '/home/berufsmesse/photos';
 const clients = new Set<ReadableStreamDefaultController<string>>();
 
 fs.watch(PHOTO_DIR, (event, filename) => {

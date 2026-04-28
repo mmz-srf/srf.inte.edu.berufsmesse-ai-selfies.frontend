@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
-import { nextPage } from "@/app/libs/utils";
 
 export default function NamePage({page}: { page: number }) {
     const [name, setName] = useState<string>("");
@@ -31,12 +30,6 @@ export default function NamePage({page}: { page: number }) {
             <Title title="Wie ist dein Vorname?" />
             <div className="w-full flex-1 mb-80 flex justify-center items-center flex-col gap-16">
                 <input type="text" maxLength={32} value={name} onChange={(e) => setName(e.target.value)} className="text-7xl p-4 rounded-xl focus:outline-none bg-srf-gs-100" />
-                <button 
-                    className="bg-srf-r-700 text-white p-8 font-bold text-6xl rounded-2xl hover:bg-srf-r-800 transition-all duration-200 ease-in-out"
-                    onClick={() => { nextPage(); handleNextPageClick(); }}
-                >
-                    Jetzt ins Studio
-                </button>
             </div>
         </PageContainer>
     )

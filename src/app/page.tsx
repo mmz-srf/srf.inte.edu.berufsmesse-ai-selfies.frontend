@@ -35,15 +35,15 @@ export default function Home() {
 
     if (!localStorageData) {
         return (
-            <NamePage page={0} />
+            <StartPage page={0} />
         );
     }
 
     switch (localStorageData.page) {
         case 0:
-            return <NamePage page={localStorageData.page} />
-        case 1:
             return <StartPage page={localStorageData.page} />
+        case 1:
+            return <NamePage page={localStorageData.page} />
         case 2:
             return <GenderPage page={localStorageData.page} />
         case 3:

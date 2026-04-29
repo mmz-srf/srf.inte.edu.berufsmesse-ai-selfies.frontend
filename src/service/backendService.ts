@@ -1,6 +1,6 @@
 import {LocalStorageData} from "@/app/libs/model";
 
-let inFlightUpload: Promise<Blob | undefined> | null = null;
+let inFlightUpload: Promise<boolean | undefined> | null = null;
 
 export async function uploadImage() {
     if (inFlightUpload) {
@@ -29,7 +29,7 @@ async function uploadImageInternal() {
         const imageResponse = await fetch('/api/latest');
         let imageBlob;
         if (!imageResponse.ok) {
-            const fallbackResponse = await fetch('/assets/backgrounds/Arena.jpg');
+            const fallbackResponse = await fetch(`/assets/backgrounds/${data.background}.jpg`);
             if (!fallbackResponse.ok) {
                 throw new Error('Failed to fetch fallback image');
             }
@@ -73,13 +73,10 @@ async function uploadImageInternal() {
         const responseData = await response.json();
         const imageBase64 = responseData.image;
 
-        // Convert base64 string back to blob
-        const imageBuffer = Buffer.from(imageBase64, 'base64');
-        const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
-
+        localStorage.setItem("generatedImage", imageBase64);
         console.log("Received response from backend. Image length: " + imageBase64.length);
 
-        return imageBlobResponse;
+        return true;
     } catch (error) {
         console.error('Error uploading image:', error);
         throw error;

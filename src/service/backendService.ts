@@ -72,7 +72,9 @@ async function uploadImageInternal() {
 
         const responseData = await response.json();
         const imageBase64 = responseData.image;
+        const imageUrl = responseData.url;
 
+        localStorage.setItem("generatedImageUrl", imageUrl);
         localStorage.setItem("generatedImage", imageBase64);
         console.log("Received response from backend. Image length: " + imageBase64.length);
 

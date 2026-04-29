@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
-import Title from "../Title";
+import * as QRCode from "qrcode";
 
 export default function ResultPage({ page }: { page: number }) {
     const [resultImageBlock, setResultImageBlock] = useState<Blob | null>(null);
@@ -11,6 +11,18 @@ export default function ResultPage({ page }: { page: number }) {
             const imageBuffer = Buffer.from(imageBase64, 'base64');
             const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
             setResultImageBlock(imageBlobResponse);
+        }
+
+        const url = localStorage.getItem("generatedImageUrl")
+        const qrCodeCanvas = document.getElementById('qr-code') as HTMLCanvasElement;
+        if (qrCodeCanvas && url) {
+            QRCode.toCanvas(
+                qrCodeCanvas,
+                url,
+                function (error: any) {
+                    if (error) console.error(error);
+                }
+            )
         }
     }, []);
 
@@ -24,7 +36,7 @@ export default function ResultPage({ page }: { page: number }) {
                     ) : (
                         <div className="w-64 h-64 bg-gray-300 animate-pulse rounded-xl" />
                     )}
-                    <img src="/icons/qr-code.png" alt="" className="w-64 h-64" />
+                    <canvas id="qr-code"></canvas>
                 </div>
 
                 <p className="font-regular text-4xl text-center">Du kannst innerhalb von den nächsten<br/>90 Tagen dein Foto herunterladen</p>

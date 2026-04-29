@@ -29,7 +29,7 @@ async function uploadImageInternal() {
         const imageResponse = await fetch('/api/latest');
         let imageBlob;
         if (!imageResponse.ok) {
-            const fallbackResponse = await fetch(`/assets/backgrounds/${data.background}.jpg`);
+            const fallbackResponse = await fetch(`/assets/greenscreen-test.jpeg`);
             if (!fallbackResponse.ok) {
                 throw new Error('Failed to fetch fallback image');
             }

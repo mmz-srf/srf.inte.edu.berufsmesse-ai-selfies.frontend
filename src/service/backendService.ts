@@ -77,7 +77,7 @@ async function uploadImageInternal() {
         const imageBuffer = Buffer.from(imageBase64, 'base64');
         const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
 
-        console.log("Received response from backend");
+        console.log("Received response from backend. Image length: " + imageBase64.length);
 
         return imageBlobResponse;
     } catch (error) {

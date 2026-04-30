@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const PHOTO_PATH = '/home/pi/photos/latest.jpg';
+const PHOTO_PATH = '/home/berufsmesse/photos/latest.jpg';
 
 export async function GET() {
   try {

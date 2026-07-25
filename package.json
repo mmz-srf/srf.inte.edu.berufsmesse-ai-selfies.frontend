@@ -18,7 +18,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-webcam": "^7.2.0",
-    "sharp": "^0.34.4",
+    "sharp": "^0.35.0",
     "uuid": "^14.0.0"
   },
   "devDependencies": {

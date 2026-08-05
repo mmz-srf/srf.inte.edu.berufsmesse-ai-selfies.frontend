@@ -2,7 +2,7 @@ import SRFLogo from "../../../public/icons/SRF.png";
 
 export default function Navbar() {
  return (
-    <nav className="w-full p-6 pb-0 flex flex-row items-center justify-start">
+    <nav className="w-full p-6 pb-0 flex flex-row items-center justify-start print:hidden">
         <img src={SRFLogo.src} alt="SRF Logo" className="h-12" />
     </nav>
  )

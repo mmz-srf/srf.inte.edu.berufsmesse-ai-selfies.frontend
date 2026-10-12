@@ -46,12 +46,29 @@ export default function LoadingPage({ page }: { page: number }) {
             {error ? (
                 <div className="mt-16 flex flex-col items-center justify-center gap-8">
                     <p className="text-2xl text-center">{error}</p>
-                    <button
-                        className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out"
-                        onClick={() => setAttempt((a) => a + 1)}
-                    >
-                        Erneut versuchen
-                    </button>
+                    <div className="flex flex-row gap-2">
+                        <button
+                            className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out cursor-pointer"
+                            onClick={() => setAttempt((a) => a + 1)}
+                        >
+                            Erneut versuchen
+                        </button>
+                        <button
+                            className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out cursor-pointer"
+                            onClick={() => {
+                                // reset local storage data to send user back to start page
+                                const storedData = localStorage.getItem("pageData");
+                                if (storedData) {
+                                    const data: LocalStorageData = JSON.parse(storedData);
+                                    data.page = 1;
+                                    localStorage.setItem("pageData", JSON.stringify(data));
+                                    window.dispatchEvent(new Event("storage"));
+                                }
+                            }}
+                        >
+                            Zurück zur Startseite
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <div className="mt-16 flex items-center justify-center">

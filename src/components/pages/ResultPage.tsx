@@ -30,6 +30,7 @@ export default function ResultPage({ page }: { page: number }) {
             QRCode.toCanvas(
                 qrCodeCanvas,
                 url,
+                { width: 360, color: { dark: '#000000', light: '#ffffff00' } },
                 function (error: any) {
                     if (error) console.error(error);
                 }
@@ -40,10 +41,10 @@ export default function ResultPage({ page }: { page: number }) {
     return (
         <PageContainer page={page} nextPageAllowed={false} onNextPageClick={() => {}}>
             <h1 className="text-7xl font-bold print:hidden">Vielen Dank fürs Mitmachen!</h1>
-            <div className="flex-1 w-full items-center justify-center flex-col gap-4 flex">
-                <div className="flex flex-row justify-around items-center w-2/3 mb-20 print:mb-0 print:w-full">
+            <div className="flex flex-1 w-full items-center justify-center flex-col gap-4">
+                <div className="flex flex-row justify-around items-center w-2/3 mb-10 print:mb-0 print:w-full">
                     {resultImageBlock ? (
-                        <img src={URL.createObjectURL(resultImageBlock)} alt="Generated Selfie" className="max-h-[30rem] object-cover rounded-xl print:max-h-none print:w-full print:rounded-none" />
+                        <img src={URL.createObjectURL(resultImageBlock)} alt="Generated Selfie" className="max-h-120 object-cover rounded-xl print:max-h-none print:w-full print:rounded-none" />
                     ) : (
                         <div className="w-64 h-64 bg-gray-300 animate-pulse rounded-xl" />
                     )}
@@ -60,7 +61,7 @@ export default function ResultPage({ page }: { page: number }) {
                         Zurück
                     </button>
                     <button
-                        className="py-3 px-8 bg-srf-wg-700 hover:bg-srf-wg-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed"
                         onClick={handlePrintClick}
                         disabled={!resultImageBlock}
                     >

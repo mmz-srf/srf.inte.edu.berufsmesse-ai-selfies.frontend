@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 
+/* Tailwind v4 no longer gives buttons a pointer cursor by default */
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
 @font-face {
   font-family: 'SRG SSR Type Text App';
   src: url('/fonts/SRGSSRType_Bd.ttf') format('truetype');
@@ -25,4 +33,106 @@ body {
 *::selection {
     color: rgb(255, 255, 255);
     background-color: #af001d;
+}
+
+/* Cat mode easter egg. Flashing stays below 3 flashes per second (WCAG 2.3.1) */
+.cat-mode {
+    animation: cat-mode-fade linear forwards;
+}
+
+.cat-mode-rainbow {
+    background: linear-gradient(120deg, #ff0040, #ff8c00, #ffe600, #00e676, #00b0ff, #d500f9, #ff0040);
+    background-size: 300% 300%;
+    mix-blend-mode: screen;
+    opacity: 0.35;
+    animation: cat-rainbow-sweep 2s linear infinite, cat-hue 1.5s linear infinite;
+}
+
+.cat-mode-light {
+    width: 60vmax;
+    height: 60vmax;
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: cat-flash 0.8s ease-in-out infinite;
+}
+
+/* Cats bounce off the screen edges: X and Y move independently at different speeds */
+.cat-mode-cat-x {
+    animation: cat-move-x linear infinite alternate;
+}
+
+.cat-mode-cat-y {
+    animation: cat-move-y linear infinite alternate;
+}
+
+.cat-mode-cat {
+    scale: 0;
+    animation-name: cat-pop-in, cat-spin;
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1), linear;
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: forwards, none;
+}
+
+.cat-mode-active {
+    animation: cat-hue 2s linear infinite;
+}
+
+@keyframes cat-mode-fade {
+    0% { opacity: 0; }
+    5% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes cat-rainbow-sweep {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+@keyframes cat-hue {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+}
+
+@keyframes cat-flash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes cat-pop-in {
+    from { scale: 0; }
+    to { scale: 1; }
+}
+
+@keyframes cat-move-x {
+    from { translate: 0 0; }
+    to { translate: calc(100vw - var(--cat-size)) 0; }
+}
+
+@keyframes cat-move-y {
+    from { translate: 0 0; }
+    to { translate: 0 calc(100vh - var(--cat-size)); }
+}
+
+@keyframes cat-spin {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cat-mode-rainbow,
+    .cat-mode-light,
+    .cat-mode-active {
+        animation: none;
+    }
+
+    /* Freeze cats at their random starting positions instead of stacking them in the corner */
+    .cat-mode-cat-x,
+    .cat-mode-cat-y {
+        animation-play-state: paused;
+    }
+
+    .cat-mode-cat {
+        animation: cat-pop-in 0.4s forwards;
+    }
 }

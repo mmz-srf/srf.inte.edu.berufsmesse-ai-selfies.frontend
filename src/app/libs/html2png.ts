@@ -46,9 +46,10 @@ export async function htmlStringToPng(html: string): Promise<string> {
     });
 
     await page.setContent(html, {
-      waitUntil: ['networkidle0', 'domcontentloaded'],
+      waitUntil: 'domcontentloaded',
       timeout: 8000
     });
+    await page.waitForNetworkIdle({ timeout: 8000 });
 
     await page.addStyleTag({
       content: 'html, body { margin: 0 !important; padding: 0 !important; } *, *::before, *::after { box-sizing: border-box; }'

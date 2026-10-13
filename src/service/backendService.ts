@@ -84,3 +84,22 @@ async function uploadImageInternal() {
         throw error;
     }
 }
+
+export async function sendImageToPrinter() {
+    const imageBase64 = localStorage.getItem("generatedImage");
+    if (!imageBase64) {
+        throw new Error('No generated image to print');
+    }
+
+    const response = await fetch('/api/print', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image: imageBase64 })
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to send image to printer');
+    }
+}

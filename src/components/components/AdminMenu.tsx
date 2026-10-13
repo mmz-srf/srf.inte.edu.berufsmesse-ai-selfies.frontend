@@ -18,6 +18,8 @@ export default function AdminMenu(
     const [adminPasswordInput, setAdminPasswordInput] = useState('');
     const [unlockError, setUnlockError] = useState('');
 
+    const [printerPath, setPrinterPath] = useState(localStorage.getItem("printerPath") || "~/to_printer");
+
     if (!open) return null;
 
     function handleUnlock(event: React.FormEvent) {
@@ -36,7 +38,7 @@ export default function AdminMenu(
         setUnlocked(false);
         setUnlockError('');
         setAdminPasswordInput('');
-        onClose(existingPath);
+        onClose(printerPath);
     }
 
     const labelClass = "block mb-1 text-sm text-srf-gs-800";
@@ -44,7 +46,6 @@ export default function AdminMenu(
     const primaryButtonClass = "w-full py-2 px-4 bg-srf-r-700 text-white rounded-lg hover:bg-srf-r-800 disabled:opacity-50";
     const secondaryButtonClass = "w-full py-2 px-4 bg-srf-gs-100 text-srf-gs-900 rounded-lg hover:bg-srf-gs-200";
 
-    const existingPath = localStorage.getItem("printerPath") || "~/to_printer";
 
     if (!unlocked) {
         return (
@@ -76,7 +77,7 @@ export default function AdminMenu(
                 <div className="flex flex-col gap-4 mb-6">
                     <div>
                         <label htmlFor="path" className={labelClass}>Path</label>
-                        <input id="path" type="text" autoComplete="off" className={inputClass} value={existingPath} />
+                        <input id="path" type="text" autoComplete="off" className={inputClass} value={printerPath} onChange={(e) => setPrinterPath(e.target.value)} />
                     </div>
                 </div>
                 <button 

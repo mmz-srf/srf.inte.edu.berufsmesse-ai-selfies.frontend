@@ -86,6 +86,7 @@ async function uploadImageInternal() {
 }
 
 export async function sendImageToPrinter() {
+    const printerPath = localStorage.getItem("printerPath");
     const imageBase64 = localStorage.getItem("generatedImage");
     if (!imageBase64) {
         throw new Error('No generated image to print');
@@ -96,7 +97,7 @@ export async function sendImageToPrinter() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ image: imageBase64 })
+        body: JSON.stringify({ image: imageBase64, printerPath: printerPath || '~/to_printer' })
     });
 
     if (!response.ok) {

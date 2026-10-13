@@ -4,13 +4,13 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { image } = await request.json();
+    const { image, printerPath } = await request.json();
     if (!image) {
       return NextResponse.json({ error: 'Missing image in request body' }, { status: 400 });
     }
 
     const fileName = `selfie_${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
-    const filePath = path.join(localStorage.getItem("printerPath") || '~/to_printer', fileName);
+    const filePath = path.join(printerPath, fileName);
 
     await fs.writeFile(filePath, Buffer.from(image, 'base64'));
 

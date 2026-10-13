@@ -31,8 +31,6 @@ export default function PageContainer(
     ) {
 
         const [isAdminOpen, setIsAdminOpen ] = useState(false);
-        const [adminUsername, setAdminUsername] = useState<string>('');
-        const [adminPassword, setAdminPassword] = useState<string>('');
         const [adminPath, setAdminPath] = useState<string>('');
 
         const [catModeId, setCatModeId] = useState<number | null>(null);
@@ -79,10 +77,8 @@ export default function PageContainer(
             };
         }, []);
 
-        function onCloseAdminMenu(username: string, password: string, path: string) {
+        function onCloseAdminMenu(path: string) {
             setIsAdminOpen(false);
-            setAdminUsername(username);
-            setAdminPassword(password);
             setAdminPath(path);
         }
 

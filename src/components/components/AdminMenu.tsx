@@ -4,9 +4,7 @@ const ADMIN_PASSWORD = "jonathan_123";
 
 interface AdminMenuProps {
     open: boolean;
-    onClose: (username: string, password: string, path: string) => void;
-    username?: string;
-    password?: string;
+    onClose: (path: string) => void;
     path?: string;
 }
 
@@ -14,13 +12,9 @@ export default function AdminMenu(
     { 
         open, 
         onClose,
-        username = 'default',
-         password = 'default', 
-         path = '/mount/mnt1', 
+        path = '/mnt/to_printer', 
     }: AdminMenuProps
 ){
-    const [usernameValue, setUsernameValue] = useState(username);
-    const [passwordValue, setPasswordValue] = useState(password);
     const [pathValue, setPathValue] = useState(path);
 
     const [unlocked, setUnlocked] = useState(false);
@@ -45,7 +39,7 @@ export default function AdminMenu(
         setUnlocked(false);
         setUnlockError('');
         setAdminPasswordInput('');
-        onClose(usernameValue, passwordValue, pathValue);
+        onClose(pathValue);
     }
 
     const labelClass = "block mb-1 text-sm text-srf-gs-800";
@@ -81,14 +75,6 @@ export default function AdminMenu(
             <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-md">
                 <h2 className="text-2xl font-bold mb-6">Admin Menu</h2>
                 <div className="flex flex-col gap-4 mb-6">
-                    <div>
-                        <label htmlFor="username" className={labelClass}>Username</label>
-                        <input id="username" type="text" autoComplete="off" className={inputClass} value={usernameValue} onChange={(e) => setUsernameValue(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className={labelClass}>Password</label>
-                        <input id="password" type="text" autoComplete="off" className={inputClass} value={passwordValue} onChange={(e) => setPasswordValue(e.target.value)} />
-                    </div>
                     <div>
                         <label htmlFor="path" className={labelClass}>Path</label>
                         <input id="path" type="text" autoComplete="off" className={inputClass} value={pathValue} onChange={(e) => setPathValue(e.target.value)} />

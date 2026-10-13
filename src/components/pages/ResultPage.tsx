@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import * as QRCode from "qrcode";
 import { saveDefaultData } from "@/app/libs/utils";
+import { sendImageToPrinter } from "@/service/backendService";
+import { CircleCheck, CircleX } from "lucide-react";
+
+type PrintStatus = 'idle' | 'sending' | 'success' | 'error';
+
+const PRINT_FEEDBACK_DURATION_MS = 4000;
 
 export default function ResultPage({ page }: { page: number }) {
     const [resultImageBlock, setResultImageBlock] = useState<Blob | null>(null);
+    const [printStatus, setPrintStatus] = useState<PrintStatus>('idle');
 
     function handleBackClick() {
         localStorage.removeItem("generatedImage");
@@ -12,9 +19,23 @@ export default function ResultPage({ page }: { page: number }) {
         saveDefaultData();
     }
 
-    function handlePrintClick() {
-        window.print();
+    // Drops the image into the printer share on the Raspberry Pi instead of opening the browser print dialog
+    async function handlePrintClick() {
+        setPrintStatus('sending');
+        try {
+            await sendImageToPrinter();
+            setPrintStatus('success');
+        } catch (error) {
+            console.error('Error sending image to printer:', error);
+            setPrintStatus('error');
+        }
     }
+
+    useEffect(() => {
+        if (printStatus !== 'success' && printStatus !== 'error') return;
+        const timeout = setTimeout(() => setPrintStatus('idle'), PRINT_FEEDBACK_DURATION_MS);
+        return () => clearTimeout(timeout);
+    }, [printStatus]);
 
     useEffect(() => {
         const imageBase64 = localStorage.getItem("generatedImage");
@@ -63,12 +84,31 @@ export default function ResultPage({ page }: { page: number }) {
                     <button
                         className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed"
                         onClick={handlePrintClick}
-                        disabled={!resultImageBlock}
+                        disabled={!resultImageBlock || printStatus === 'sending'}
                     >
-                        Drucken
+                        {printStatus === 'sending' ? 'Wird gesendet…' : 'Drucken'}
                     </button>
                 </div>
             </div>
+
+            {(printStatus === 'success' || printStatus === 'error') && (
+                <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center print:hidden" onClick={() => setPrintStatus('idle')}>
+                    <div className="bg-white p-12 rounded-xl shadow-lg flex flex-col items-center gap-6">
+                        {printStatus === 'success' ? (
+                            <>
+                                <CircleCheck className="w-32 h-32 text-green-600" />
+                                <p className="text-4xl font-bold text-center">Dein Bild wird gedruckt!</p>
+                            </>
+                        ) : (
+                            <>
+                                <CircleX className="w-32 h-32 text-srf-r-700" />
+                                <p className="text-4xl font-bold text-center">Drucken fehlgeschlagen</p>
+                                <p className="text-2xl text-center">Bitte versuche es nochmals oder melde dich beim Team.</p>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
         </PageContainer>
     )
 }

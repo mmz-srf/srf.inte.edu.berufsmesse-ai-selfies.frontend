@@ -76,7 +76,7 @@ export default function AdminMenu(
                 <div className="flex flex-col gap-4 mb-6">
                     <div>
                         <label htmlFor="path" className={labelClass}>Path</label>
-                        <input id="path" type="text" autoComplete="off" className={inputClass} value={existingPath} readOnly />
+                        <input id="path" type="text" autoComplete="off" className={inputClass} value={existingPath} />
                     </div>
                 </div>
                 <button 

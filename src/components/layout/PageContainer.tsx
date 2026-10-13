@@ -31,7 +31,6 @@ export default function PageContainer(
     ) {
 
         const [isAdminOpen, setIsAdminOpen ] = useState(false);
-        const [adminPath, setAdminPath] = useState<string>('');
 
         const [catModeId, setCatModeId] = useState<number | null>(null);
         const catModeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -79,7 +78,7 @@ export default function PageContainer(
 
         function onCloseAdminMenu(path: string) {
             setIsAdminOpen(false);
-            setAdminPath(path);
+            localStorage.setItem("printerPath", path);
         }
 
         return (

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ADMIN_PASSWORD = "jonathan_123";
+const DEFAULT_PRINTER_PATH = "/home/berufsmesse/to_printer";
 
 interface AdminMenuProps {
     open: boolean;
@@ -18,7 +19,13 @@ export default function AdminMenu(
     const [adminPasswordInput, setAdminPasswordInput] = useState('');
     const [unlockError, setUnlockError] = useState('');
 
-    const [printerPath, setPrinterPath] = useState(localStorage.getItem("printerPath") || "~/to_printer");
+    const [printerPath, setPrinterPath] = useState(DEFAULT_PRINTER_PATH);
+
+    useEffect(() => {
+        if (open) {
+            setPrinterPath(localStorage.getItem("printerPath") || DEFAULT_PRINTER_PATH);
+        }
+    }, [open]);
 
     if (!open) return null;
 

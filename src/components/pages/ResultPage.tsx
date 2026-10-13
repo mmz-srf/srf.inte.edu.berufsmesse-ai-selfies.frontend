@@ -58,7 +58,7 @@ export default function ResultPage({ page }: { page: number }) {
                         className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out"
                         onClick={handleBackClick}
                     >
-                        Zurück
+                        Neues Bild
                     </button>
                     <button
                         className="py-3 px-8 bg-srf-r-700 hover:bg-srf-r-800 text-white rounded-xl text-2xl sm:text-3xl font-regular transition-all duration-200 ease-in-out disabled:opacity-40 disabled:cursor-not-allowed"

@@ -1,4 +1,27 @@
 import puppeteer from 'puppeteer';
+import { readFileSync } from 'fs';
+import path from 'path';
+
+// Weight per file in public/fonts; there is no Light file, so weight 300 falls back to Regular
+const FONT_FILES: { file: string; weight: number }[] = [
+  { file: 'SRGSSRType_Rg.ttf', weight: 400 },
+  { file: 'SRGSSRType_Md.ttf', weight: 500 },
+  { file: 'SRGSSRType_Bd.ttf', weight: 700 },
+];
+
+let fontFaceCss: string | undefined;
+
+// Embed the fonts as data URLs, since the page created by setContent cannot load files from the Next.js server
+function getFontFaceCss(): string {
+  if (!fontFaceCss) {
+    const fontsDir = path.join(process.cwd(), 'public', 'fonts');
+    fontFaceCss = FONT_FILES.map(({ file, weight }) => {
+      const base64 = readFileSync(path.join(fontsDir, file)).toString('base64');
+      return `@font-face { font-family: 'SRG SSR Type'; src: url(data:font/ttf;base64,${base64}) format('truetype'); font-weight: ${weight}; font-style: normal; }`;
+    }).join('\n');
+  }
+  return fontFaceCss;
+}
 
 export async function htmlStringToPng(html: string): Promise<string> {
   let browser;
@@ -16,9 +39,8 @@ export async function htmlStringToPng(html: string): Promise<string> {
         '--allow-insecure-localhost'
       ]
     } as any);
-    
     const page = await browser.newPage();
-    await page.setViewport({ width: 670, height: 938 });
+    await page.setViewport({ width: 2120, height: 1416 });
 
     page.on('requestfailed', (req) => {
       console.warn('Request failed:', req.url(), req.failure()?.errorText);
@@ -45,14 +67,14 @@ export async function htmlStringToPng(html: string): Promise<string> {
       request.continue();
     });
 
-    await page.setContent(html, {
+    await page.setContent(`<style>${getFontFaceCss()}</style>${html}`, {
       waitUntil: 'domcontentloaded',
       timeout: 8000
     });
     await page.waitForNetworkIdle({ timeout: 8000 });
 
     await page.addStyleTag({
-      content: 'html, body { margin: 0 !important; padding: 0 !important; } *, *::before, *::after { box-sizing: border-box; }'
+      content: 'html, body { margin: 0 !important; padding: 0 !important; background: transparent !important; } *, *::before, *::after { box-sizing: border-box; }'
     });
 
     await page.evaluate(() => {
@@ -75,7 +97,8 @@ export async function htmlStringToPng(html: string): Promise<string> {
     const screenshot = await page.screenshot({ 
       encoding: "base64",
       type: 'png',
-      fullPage: true
+      fullPage: true,
+      omitBackground: true
     });
     
     return screenshot;

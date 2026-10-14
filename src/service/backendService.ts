@@ -1,4 +1,5 @@
 import {LocalStorageData} from "@/app/libs/model";
+import { getGeneratedImage, saveGeneratedImage } from "./imageStore";
 
 let inFlightUpload: Promise<boolean | undefined> | null = null;
 
@@ -75,7 +76,7 @@ async function uploadImageInternal() {
         const imageUrl = responseData.url;
 
         localStorage.setItem("generatedImageUrl", imageUrl);
-        localStorage.setItem("generatedImage", imageBase64);
+        await saveGeneratedImage(imageBase64);
         console.log("Received response from backend. Image length: " + imageBase64.length);
 
         return true;
@@ -87,7 +88,7 @@ async function uploadImageInternal() {
 
 export async function sendImageToPrinter() {
     const printerPath = localStorage.getItem("printerPath");
-    const imageBase64 = localStorage.getItem("generatedImage");
+    const imageBase64 = await getGeneratedImage();
     if (!imageBase64) {
         throw new Error('No generated image to print');
     }

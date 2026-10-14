@@ -3,6 +3,7 @@ import PageContainer from "../layout/PageContainer";
 import * as QRCode from "qrcode";
 import { saveDefaultData } from "@/app/libs/utils";
 import { sendImageToPrinter } from "@/service/backendService";
+import { clearGeneratedImage, getGeneratedImage } from "@/service/imageStore";
 import { CircleCheck, CircleX } from "lucide-react";
 
 type PrintStatus = 'idle' | 'sending' | 'success' | 'error';
@@ -14,7 +15,7 @@ export default function ResultPage({ page }: { page: number }) {
     const [printStatus, setPrintStatus] = useState<PrintStatus>('idle');
 
     function handleBackClick() {
-        localStorage.removeItem("generatedImage");
+        clearGeneratedImage().catch((error) => console.error('Error clearing generated image:', error));
         localStorage.removeItem("generatedImageUrl");
         saveDefaultData();
     }
@@ -38,12 +39,15 @@ export default function ResultPage({ page }: { page: number }) {
     }, [printStatus]);
 
     useEffect(() => {
-        const imageBase64 = localStorage.getItem("generatedImage");
-        if (imageBase64) {
-            const imageBuffer = Buffer.from(imageBase64, 'base64');
-            const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
-            setResultImageBlock(imageBlobResponse);
-        }
+        getGeneratedImage()
+            .then((imageBase64) => {
+                if (imageBase64) {
+                    const imageBuffer = Buffer.from(imageBase64, 'base64');
+                    const imageBlobResponse = new Blob([imageBuffer], { type: 'image/jpeg' });
+                    setResultImageBlock(imageBlobResponse);
+                }
+            })
+            .catch((error) => console.error('Error loading generated image:', error));
 
         const url = localStorage.getItem("generatedImageUrl")
         const qrCodeCanvas = document.getElementById('qr-code') as HTMLCanvasElement;

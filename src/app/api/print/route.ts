@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing image in request body' }, { status: 400 });
     }
 
-    const fileName = `selfie_${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
+    const fileName = `selfie_${new Date().toISOString().replace(/[:.]/g, '-')}.jpg`;
     const filePath = path.join(printerPath, fileName);
 
     await fs.writeFile(filePath, Buffer.from(image, 'base64'));

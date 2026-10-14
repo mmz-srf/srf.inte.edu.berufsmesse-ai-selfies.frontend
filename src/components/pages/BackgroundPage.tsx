@@ -37,7 +37,7 @@ export default function BackgroundPage({ page }: { page: number }) {
     return (
         <PageContainer page={page} nextPageAllowed={!!selectedBackground} onNextPageClick={() => {}}>
             <Title title="Vor welchem Hintergrund möchtest du stehen?" />
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-[1400px] px-2 sm:px-4 pb-20">
+            <div className="flex flex-wrap justify-center gap-4 mt-4 sm:gap-6 w-full max-w-[1400px] px-2 sm:px-4 pb-20">
                 {
                     backgrounds.map((background) => (
                         <div key={background} className="flex flex-col gap-3 sm:gap-4 justify-center items-center w-[46%] sm:w-[30%] min-w-[140px] sm:min-w-[220px] max-w-[340px] transition-all duration-300 ease-in-out">

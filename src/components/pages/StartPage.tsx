@@ -29,9 +29,9 @@ export default function StartPage({page}: { page: number }) {
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-center">Steh im SRF-Studio</h1>
             <img
                 ref={imgRef}
-                src={`/api/latest?t=${imageVersion}`}
+                src={'/assets/greenscreen-test.jpeg'}
                 alt="Placeholder"
-                className="rounded-2xl mt-4 sm:mt-6 w-auto h-auto max-w-[92vw] max-h-[34vh] sm:max-h-[36vh] lg:max-h-[38vh] object-contain"
+                className="rounded-2xl mt-4 mb-6 sm:mt-6 w-auto h-auto max-h-[55vh] object-contain"
             />
             
             <button 

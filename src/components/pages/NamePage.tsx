@@ -29,7 +29,7 @@ export default function NamePage({page}: { page: number }) {
         <PageContainer page={page} nextPageAllowed={!!name} onNextPageClick={handleNextPageClick}>
             <Title title="Wie ist dein Vorname?" />
             <div className="w-full flex-1 mb-80 flex justify-center items-center flex-col gap-16">
-                <input type="text" maxLength={32} value={name} onChange={(e) => setName(e.target.value)} className="text-7xl p-4 rounded-xl focus:outline-none bg-srf-gs-100" />
+                <input type="text" maxLength={32} placeholder="Dein Vorname" value={name} onChange={(e) => setName(e.target.value)} className="text-7xl p-4 rounded-xl focus:outline-none bg-srf-gs-100" />
             </div>
         </PageContainer>
     )

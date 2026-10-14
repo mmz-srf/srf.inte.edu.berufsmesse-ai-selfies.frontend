@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer';
 import { readFileSync } from 'fs';
 import path from 'path';
+import { backgroundResolutions } from './config';
 
 // Weight per file in public/fonts; there is no Light file, so weight 300 falls back to Regular
 const FONT_FILES: { file: string; weight: number }[] = [
@@ -23,7 +24,7 @@ function getFontFaceCss(): string {
   return fontFaceCss;
 }
 
-export async function htmlStringToPng(html: string): Promise<string> {
+export async function htmlStringToPng(html: string, resX: number, resY: number): Promise<string> {
   let browser;
   
   try {
@@ -40,7 +41,8 @@ export async function htmlStringToPng(html: string): Promise<string> {
       ]
     } as any);
     const page = await browser.newPage();
-    await page.setViewport({ width: 2120, height: 1416 });
+
+    await page.setViewport({ width: resX, height: resY });
 
     page.on('requestfailed', (req) => {
       console.warn('Request failed:', req.url(), req.failure()?.errorText);

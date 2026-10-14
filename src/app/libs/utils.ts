@@ -1,3 +1,4 @@
+import { backgroundResolutions } from "./config";
 import { LocalStorageData } from "./model";
 
 export function nextPage() {

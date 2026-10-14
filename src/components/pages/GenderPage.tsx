@@ -3,6 +3,7 @@ import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
 import { LocalStorageData } from "@/app/libs/model";
 import GenderOption from "../GenderOption";
+import { useKeyDown } from "@/app/libs/useKeyDown";
 
 export default function GenderPage({ page}: { page: number }) {
     const [gender, setGender] = useState<string | null>(null);
@@ -14,6 +15,15 @@ export default function GenderPage({ page}: { page: number }) {
         setMaleSelected(selectedGender === "male");
         setFemaleSelected(selectedGender === "female");
     }
+
+    // arrow keys pick the option on that side
+    useKeyDown((event) => {
+        if (event.key === "ArrowLeft") {
+            handleGenderSelect("male");
+        } else if (event.key === "ArrowRight") {
+            handleGenderSelect("female");
+        }
+    });
 
     useEffect(() => {
         const storedData = localStorage.getItem("pageData");

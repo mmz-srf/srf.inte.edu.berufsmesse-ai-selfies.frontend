@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
+import { useKeyDown } from "@/app/libs/useKeyDown";
 
 export default function BackgroundPage({ page }: { page: number }) {
     const [selectedBackground, setSelectedBackground] = useState<string | null>(null);
@@ -11,6 +12,20 @@ export default function BackgroundPage({ page }: { page: number }) {
         "Radio",
         "Sport"
     ];
+
+    // arrow keys switch to the previous/next background, wrapping around at the ends
+    useKeyDown((event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+            return;
+        }
+        event.preventDefault();
+        const step = event.key === "ArrowRight" ? 1 : -1;
+        const index = selectedBackground ? backgrounds.indexOf(selectedBackground) : -1;
+        const nextIndex = index === -1
+            ? (step === 1 ? 0 : backgrounds.length - 1)
+            : (index + step + backgrounds.length) % backgrounds.length;
+        setSelectedBackground(backgrounds[nextIndex]);
+    });
 
     useEffect(() => {
         const storedData = localStorage.getItem("pageData");

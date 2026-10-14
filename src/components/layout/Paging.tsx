@@ -1,19 +1,30 @@
 import { nextPage, previousPage } from "@/app/libs/utils";
+import { useKeyDown } from "@/app/libs/useKeyDown";
 import Image from "next/image";
 
 export default function Paging({ currentPage, nextPageAllowed, onNextPageClick }: { currentPage: number, nextPageAllowed: boolean, onNextPageClick: () => void }) {
     const iconLeft = "/icons/left.svg";
     const iconRight = "/icons/right.svg";
 
-    if (currentPage === 0 || currentPage >= 4) {
-        return null;
-    }
-
     function handleNextPageClick() {
         if (nextPageAllowed) {
             nextPage();
             onNextPageClick();
         }
+    }
+
+    // Enter works like the "next" arrow, also on the start page (which has no arrows)
+    useKeyDown((event) => {
+        if (event.key !== "Enter" || currentPage >= 4 || !nextPageAllowed) {
+            return;
+        }
+        // a focused button (e.g. "Jetzt ins Studio") would otherwise also be clicked and skip a second step
+        event.preventDefault();
+        handleNextPageClick();
+    });
+
+    if (currentPage === 0 || currentPage >= 4) {
+        return null;
     }
 
     return (

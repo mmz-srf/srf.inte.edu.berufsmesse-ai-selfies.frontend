@@ -56,7 +56,7 @@ export default function AdminMenu(
 
     if (!unlocked) {
         return (
-            <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" data-keyboard-navigation="off">
                 <form onSubmit={handleUnlock} className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-md">
                     <h2 className="text-2xl font-bold mb-6">Admin Menu</h2>
                     <div className="mb-6">
@@ -78,7 +78,7 @@ export default function AdminMenu(
     }
 
     return (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" data-keyboard-navigation="off">
             <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-md">
                 <h2 className="text-2xl font-bold mb-6">Admin Menu</h2>
                 <div className="flex flex-col gap-4 mb-6">

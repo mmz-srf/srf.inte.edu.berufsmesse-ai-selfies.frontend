@@ -41,7 +41,7 @@ export function saveDefaultData() {
     const defaultData: LocalStorageData = {
         page: 0,
         name: "",
-        background: "Meteo",
+        background: "Arena",
         gender: "",
     };
     setLocalStorageData(defaultData);

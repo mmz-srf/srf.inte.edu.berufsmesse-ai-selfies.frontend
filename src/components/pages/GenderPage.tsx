@@ -4,16 +4,19 @@ import Title from "../Title";
 import { LocalStorageData } from "@/app/libs/model";
 import GenderOption from "../GenderOption";
 import { useKeyDown } from "@/app/libs/useKeyDown";
+import { getLocalStorageData, setLocalStorageData } from "@/app/libs/utils";
 
 export default function GenderPage({ page}: { page: number }) {
     const [gender, setGender] = useState<string | null>(null);
     const [maleSelected, setMaleSelected] = useState(false);
     const [femaleSelected, setFemaleSelected] = useState(false);
 
-    function handleGenderSelect(selectedGender: string) {
-        setGender(selectedGender);
-        setMaleSelected(selectedGender === "male");
-        setFemaleSelected(selectedGender === "female");
+    // selecting a gender saves it and continues to the next page right away
+    function handleGenderSelect(selectedGender: 'male' | 'female') {
+        const data = getLocalStorageData();
+        if (data) {
+            setLocalStorageData({ ...data, gender: selectedGender, page: data.page + 1 });
+        }
     }
 
     // arrow keys pick the option on that side

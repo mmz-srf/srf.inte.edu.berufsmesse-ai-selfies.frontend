@@ -42,7 +42,7 @@ export default function Paging({ currentPage, nextPageAllowed, onNextPageClick }
                 alt="Next"
                 width={52}
                 height={52}
-                className={`cursor-pointer transition-opacity ${nextPageAllowed ? "opacity-100" : "opacity-40 cursor-not-allowed"}`}
+                className={`cursor-pointer transition-opacity ${currentPage == 1 ? "opacity-100" : "opacity-0"}`}
                 onClick={handleNextPageClick}
             />
         </div>

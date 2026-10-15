@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import PageContainer from "../layout/PageContainer";
 import Title from "../Title";
 import { useKeyDown } from "@/app/libs/useKeyDown";
+import { LocalStorageData } from "@/app/libs/model";
+import { getLocalStorageData, setLocalStorageData } from "@/app/libs/utils";
 
 export default function BackgroundPage({ page }: { page: number }) {
     const [selectedBackground, setSelectedBackground] = useState<string | null>(null);
@@ -13,7 +15,15 @@ export default function BackgroundPage({ page }: { page: number }) {
         "Sport"
     ];
 
-    // arrow keys switch to the previous/next background, wrapping around at the ends
+    // clicking a background saves it and continues to the next page right away
+    function handleBackgroundSelect(background: string) {
+        const data = getLocalStorageData();
+        if (data) {
+            setLocalStorageData({ ...data, background: background as LocalStorageData['background'], page: data.page + 1 });
+        }
+    }
+
+    // arrow keys switch to the previous/next background, wrapping around at the ends, Enter confirms it
     useKeyDown((event) => {
         if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
             return;
@@ -57,11 +67,11 @@ export default function BackgroundPage({ page }: { page: number }) {
                     backgrounds.map((background) => (
                         <div key={background} className="flex flex-col gap-3 sm:gap-4 justify-center items-center w-[46%] sm:w-[30%] min-w-[140px] sm:min-w-[220px] max-w-[340px] transition-all duration-300 ease-in-out">
                             <div className={`p-[4px] border-2 ${selectedBackground === background ? "border-srf-r-600" : "border-transparent"} rounded-xl transition-all duration-300 ease-in-out`}>
-                                <img src={`/assets/backgrounds/${background}.jpg`} alt={background} className="rounded-xl object-cover w-full aspect-[3/2] cursor-pointer" onClick={() => { setSelectedBackground(background) }} />
+                                <img src={`/assets/backgrounds/${background}.jpg`} alt={background} className="rounded-xl object-cover w-full aspect-[3/2] cursor-pointer" onClick={() => handleBackgroundSelect(background)} />
                             </div>
                             <button 
                                 className={`py-2 sm:py-3 px-4 sm:px-8 ${selectedBackground === background ? "bg-srf-wg-700" : "bg-srf-r-700 hover:bg-srf-r-800"} text-white w-fit rounded-xl text-xl sm:text-2xl lg:text-3xl font-regular duration-200 ease-in-out transition-all`}
-                                onClick={() => { setSelectedBackground(background); }} >
+                                onClick={() => handleBackgroundSelect(background)} >
                                 {background}
                             </button>
                         </div>

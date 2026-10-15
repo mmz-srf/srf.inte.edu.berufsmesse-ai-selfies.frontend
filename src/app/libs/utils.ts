@@ -20,7 +20,7 @@ function updatePage(page: number) {
     setLocalStorageData({
         page: page,
         name: getLocalStorageData()?.name || "",
-        background: getLocalStorageData()?.background || "Meteo",
+        background: getLocalStorageData()?.background || "",
         gender: getLocalStorageData()?.gender || "",
     });
 }
@@ -42,7 +42,7 @@ export function saveDefaultData() {
     const defaultData: LocalStorageData = {
         page: 0,
         name: "",
-        background: "Arena",
+        background: "",
         gender: "",
     };
     setLocalStorageData(defaultData);

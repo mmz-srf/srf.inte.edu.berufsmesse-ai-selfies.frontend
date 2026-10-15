@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { Statistics } from "@/app/libs/statistics";
 
 const ADMIN_PASSWORD = "jonathan_123";
 const DEFAULT_PRINTER_PATH = "/home/berufsmesse/to_printer";
@@ -20,12 +21,21 @@ export default function AdminMenu(
     const [unlockError, setUnlockError] = useState('');
 
     const [printerPath, setPrinterPath] = useState(DEFAULT_PRINTER_PATH);
+    const [statistics, setStatistics] = useState<Statistics | null>(null);
 
     useEffect(() => {
         if (open) {
             setPrinterPath(localStorage.getItem("printerPath") || DEFAULT_PRINTER_PATH);
         }
     }, [open]);
+
+    useEffect(() => {
+        if (!unlocked) return;
+        fetch('/api/statistics')
+            .then((response) => response.ok ? response.json() : null)
+            .then(setStatistics)
+            .catch((error) => console.error('Error loading statistics:', error));
+    }, [unlocked]);
 
     if (!open) return null;
 
@@ -85,6 +95,25 @@ export default function AdminMenu(
                     <div>
                         <label htmlFor="path" className={labelClass}>Path</label>
                         <input id="path" type="text" autoComplete="off" className={inputClass} value={printerPath} onChange={(e) => setPrinterPath(e.target.value)} />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold mb-2">Statistics</h3>
+                        {statistics ? (
+                            <dl className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-srf-gs-900">
+                                <dt>Finished results</dt>
+                                <dd className="text-right">{statistics.totalResults}</dd>
+                                <dt>Prints</dt>
+                                <dd className="text-right">{statistics.totalPrints}</dd>
+                                {Object.entries(statistics.backgrounds).map(([background, count]) => (
+                                    <div key={background} className="contents">
+                                        <dt className="pl-4 text-srf-gs-800">{background}</dt>
+                                        <dd className="text-right">{count}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        ) : (
+                            <p className="text-sm text-srf-gs-800">Statistics unavailable</p>
+                        )}
                     </div>
                 </div>
                 <button 

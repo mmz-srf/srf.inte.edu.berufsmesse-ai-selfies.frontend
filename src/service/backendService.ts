@@ -79,6 +79,15 @@ async function uploadImageInternal() {
         await saveGeneratedImage(imageBase64);
         console.log("Received response from backend. Image length: " + imageBase64.length);
 
+        // Statistics are best effort, the user should still get their result if recording fails
+        fetch('/api/statistics', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ background: data.background })
+        }).catch((error) => console.error('Error recording statistics:', error));
+
         return true;
     } catch (error) {
         console.error('Error uploading image:', error);

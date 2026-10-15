@@ -98,25 +98,28 @@ export default function AdminMenu(
                     </div>
                     <div>
                         <h3 className="text-lg font-bold mb-2">Statistics</h3>
-                        {statistics ? (
-                            <dl className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-srf-gs-900">
-                                <dt>Finished results</dt>
-                                <dd className="text-right">{statistics.totalResults}</dd>
-                                <dt>Prints</dt>
-                                <dd className="text-right">{statistics.totalPrints}</dd>
-                                {Object.entries(statistics.backgrounds).map(([background, count]) => (
-                                    <div key={background} className="contents">
-                                        <dt className="pl-4 text-srf-gs-800">{background}</dt>
-                                        <dd className="text-right">{count}</dd>
+                        {!statistics ? (
+                            <p className="text-sm text-srf-gs-800">Statistics unavailable</p>
+                        ) : Object.keys(statistics.days).length === 0 ? (
+                            <p className="text-sm text-srf-gs-800">No statistics recorded yet</p>
+                        ) : (
+                            <div className="flex flex-col gap-4 max-h-[50vh] overflow-y-auto pr-2">
+                                {Object.entries(statistics.days).sort(([a], [b]) => b.localeCompare(a)).map(([day, daily]) => (
+                                    <div key={day}>
+                                        <h4 className="font-bold">{new Date(`${day}T00:00:00`).toLocaleDateString('de-CH')}</h4>
+                                        <dl className="pl-5 grid grid-cols-[1fr_auto] text-sm font-normal gap-x-4 gap-y-1 text-srf-gs-900">
+                                            <dt>Finished results</dt>
+                                            <dd className="text-right">{daily.totalResults}</dd>
+                                            <dt>Prints</dt>
+                                            <dd className="text-right">{daily.totalPrints}</dd>
+                                        </dl>
                                     </div>
                                 ))}
-                            </dl>
-                        ) : (
-                            <p className="text-sm text-srf-gs-800">Statistics unavailable</p>
+                            </div>
                         )}
                     </div>
                 </div>
-                <button 
+                <button
                     className={primaryButtonClass}
                     onClick={handleClose}
                 >

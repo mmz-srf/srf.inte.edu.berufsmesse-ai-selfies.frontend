@@ -1,0 +1,103 @@
+{
+  "days": {
+    "2026-10-15": {
+      "totalResults": 42,
+      "totalPrints": 4,
+      "backgrounds": {
+        "Arena": 2,
+        "Meteo": 8,
+        "Radio": 6,
+        "Sport": 8,
+        "Tagesschau": 18
+      }
+    },
+    "2026-10-22": {
+      "totalResults": 17,
+      "totalPrints": 3,
+      "backgrounds": {
+        "Arena": 3,
+        "Meteo": 4,
+        "Radio": 2,
+        "Sport": 0,
+        "Tagesschau": 8
+      }
+    },
+    "2026-10-23": {
+      "totalResults": 4,
+      "totalPrints": 0,
+      "backgrounds": {
+        "Arena": 0,
+        "Meteo": 0,
+        "Radio": 0,
+        "Sport": 3,
+        "Tagesschau": 1
+      }
+    },
+    "2026-11-16": {
+      "totalResults": 4,
+      "totalPrints": 6,
+      "backgrounds": {
+        "Arena": 0,
+        "Meteo": 0,
+        "Radio": 0,
+        "Sport": 0,
+        "Tagesschau": 4
+      }
+    },
+    "2026-11-17": {
+      "totalResults": 87,
+      "totalPrints": 92,
+      "backgrounds": {
+        "Arena": 23,
+        "Meteo": 14,
+        "Radio": 5,
+        "Sport": 11,
+        "Tagesschau": 34
+      }
+    },
+    "2026-11-18": {
+      "totalResults": 120,
+      "totalPrints": 124,
+      "backgrounds": {
+        "Arena": 18,
+        "Meteo": 17,
+        "Radio": 11,
+        "Sport": 29,
+        "Tagesschau": 45
+      }
+    },
+    "2026-11-19": {
+      "totalResults": 84,
+      "totalPrints": 99,
+      "backgrounds": {
+        "Arena": 15,
+        "Meteo": 2,
+        "Radio": 6,
+        "Sport": 18,
+        "Tagesschau": 43
+      }
+    },
+    "2026-11-20": {
+      "totalResults": 118,
+      "totalPrints": 182,
+      "backgrounds": {
+        "Arena": 30,
+        "Meteo": 11,
+        "Radio": 9,
+        "Sport": 29,
+        "Tagesschau": 39
+      }
+    },
+    "2026-11-21": {
+      "totalResults": 104,
+      "totalPrints": 124,
+      "backgrounds": {
+        "Arena": 21,
+        "Meteo": 11,
+        "Radio": 6,
+        "Sport": 18,
+        "Tagesschau": 48
+      }
+    }
+  }
+}

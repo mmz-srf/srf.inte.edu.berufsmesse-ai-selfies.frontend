@@ -1,38 +1,5 @@
 {
   "days": {
-    "2026-10-15": {
-      "totalResults": 42,
-      "totalPrints": 4,
-      "backgrounds": {
-        "Arena": 2,
-        "Meteo": 8,
-        "Radio": 6,
-        "Sport": 8,
-        "Tagesschau": 18
-      }
-    },
-    "2026-10-22": {
-      "totalResults": 17,
-      "totalPrints": 3,
-      "backgrounds": {
-        "Arena": 3,
-        "Meteo": 4,
-        "Radio": 2,
-        "Sport": 0,
-        "Tagesschau": 8
-      }
-    },
-    "2026-10-23": {
-      "totalResults": 4,
-      "totalPrints": 0,
-      "backgrounds": {
-        "Arena": 0,
-        "Meteo": 0,
-        "Radio": 0,
-        "Sport": 3,
-        "Tagesschau": 1
-      }
-    },
     "2026-11-16": {
       "totalResults": 4,
       "totalPrints": 6,

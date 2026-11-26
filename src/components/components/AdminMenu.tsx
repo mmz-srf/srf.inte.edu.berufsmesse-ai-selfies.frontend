@@ -97,7 +97,10 @@ export default function AdminMenu(
                         <input id="path" type="text" autoComplete="off" className={inputClass} value={printerPath} onChange={(e) => setPrinterPath(e.target.value)} />
                     </div>
                     <div>
-                        <h3 className="text-lg font-bold mb-2">Statistics</h3>
+                        <div className="flex items-baseline justify-between mb-2">
+                            <h3 className="text-lg font-bold">Statistics</h3>
+                            <a href="/statistics" target="_blank" rel="noopener" className="text-sm text-srf-r-700 hover:underline">Open dashboard ↗</a>
+                        </div>
                         {!statistics ? (
                             <p className="text-sm text-srf-gs-800">Statistics unavailable</p>
                         ) : Object.keys(statistics.days).length === 0 ? (
